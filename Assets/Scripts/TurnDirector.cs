@@ -25,6 +25,7 @@ public class TurnDirector : MonoBehaviour
     private void Update() {
         switch (currentPhase) {
             case Phase.Start:
+                _caster.DrawMoveArcTriangle();
                 Debug.Log("Beginning MoveSelect Phase");
                 NextPhase();
                 break;

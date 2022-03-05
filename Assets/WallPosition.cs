@@ -8,14 +8,18 @@ public class WallPosition : MonoBehaviour {
     public Vector2 currentFacing;
     
     private Dictionary<Vector2,float> facingSettings = new Dictionary<Vector2,float>() {
-        {Vector2.left, 0},
-        {Vector2.up, -90f},
-        {Vector2.down, 90f},
-        {Vector2.right, 180f}
+        {Vector2.left, 90f},
+        {Vector2.up, 180f},
+        {Vector2.right, 270f},
+        {Vector2.down, 0f},
     };
 
     public void Start() {
         Move(transform.position);
+    }
+
+    public float GetRotationAtCurrentAngle() {
+        return facingSettings[currentFacing];
     }
 
     public void Move(Vector2 position) {

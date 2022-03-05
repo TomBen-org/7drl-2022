@@ -349,7 +349,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0a8b06f667c8d247817009a0d7f982a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera: {fileID: 0}
+  myCamera: {fileID: 0}
+  maxAimAngle: 30
   targetPoint: {x: -Infinity, y: -Infinity}
 --- !u!114 &1472169185690639913
 MonoBehaviour:
