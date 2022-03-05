@@ -17,20 +17,17 @@ public class WallPosition : MonoBehaviour {
     private TurnDirector _director;
     
     private Dictionary<Vector2,float> facingSettings = new Dictionary<Vector2,float>() {
-        {Vector2.left, 90f},
+        {Vector2.left, 270f},
         {Vector2.up, 180f},
-        {Vector2.right, 270f},
+        {Vector2.right, 90f},
         {Vector2.down, 0f},
     };
 
     private void Awake() {
         _director = GetComponent<TurnDirector>();
-        //_mover = GetComponent<DOTweenAnimation>();
     }
 
     public void Start() {
-        InstantMove(transform.position);
-
         if (_moveCompleteEvent == null) {
             _moveCompleteEvent = new UnityEvent();
         }
@@ -103,6 +100,7 @@ public class WallPosition : MonoBehaviour {
             {Vector2.right, 999f},
             {Vector2.down, 999f}
         };
+        
 
         int mask = LayerMask.GetMask("MoveTarget");
         Vector2 nextPos = transform.position;
@@ -111,7 +109,6 @@ public class WallPosition : MonoBehaviour {
             RaycastHit2D hit = Physics2D.Raycast(nextPos, key, 0.5f, mask);
             if (hit.collider) {
                 float dist = Vector2.Distance(hit.point, nextPos);
-                Debug.Log(key.ToString() + dist.ToString());
                 vectorsToTry[key] = dist;
             }
         }
@@ -123,8 +120,9 @@ public class WallPosition : MonoBehaviour {
             return aDist.CompareTo(bDist);
         });
 
-        currentFacing = directionsToSort[0];
-        transform.rotation = Quaternion.Euler(new Vector3(0,0,facingSettings[currentFacing]));
+        currentFacing = -directionsToSort[0];
+        
+        transform.rotation = Quaternion.Euler(new Vector3(0,0,Vector2.SignedAngle(Vector2.up,currentFacing)));
     }
 
 }

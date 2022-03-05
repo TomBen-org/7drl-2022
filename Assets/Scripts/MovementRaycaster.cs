@@ -30,7 +30,6 @@ public class MovementRaycaster : MonoBehaviour {
         var worldMousePos = myCamera.ScreenToWorldPoint(Input.mousePosition);
         
         if (Input.GetKeyDown(KeyCode.Space) && IsTargetPointValid()) {
-            Debug.Log("Next phase accepted by spacebar");
             _director.NextPhase();
             return;
         }
@@ -49,7 +48,7 @@ public class MovementRaycaster : MonoBehaviour {
 
             if (hit.collider) {
                 _lineRenderer.SetPositions(new Vector3[] {transform.position, hit.point});
-                if (hit.collider.transform.GetComponent<Enemy>() != null) {
+                if (hit.collider.transform.GetComponent<Enemy>() != null || IsWithinViewCone(hit.point) == false) {
                     _lineRenderer.endColor = Color.red;
                     targetPoint = Vector2.negativeInfinity;
                 }
@@ -83,11 +82,10 @@ public class MovementRaycaster : MonoBehaviour {
     }
     
     public bool IsTargetPointValid() {
-        return targetPoint != Vector2.negativeInfinity;
+        return targetPoint != Vector2.negativeInfinity && IsWithinViewCone(targetPoint);
     }
 
     public void ResetTargetPoint() {
-        Debug.Log("reset line");
         targetPoint = Vector2.negativeInfinity;
         _lineRenderer.SetPositions(new Vector3[]{transform.position,transform.position});
     }
@@ -99,39 +97,39 @@ public class MovementRaycaster : MonoBehaviour {
     }
     
     public bool IsWithinViewCone(Vector2 point) {
-        Vector2 currentRotation = _wallPosition.currentFacing;
+        
         Vector2 directionToPoint = point - (Vector2) transform.position;
-
-        float angle = Mathf.Atan2(directionToPoint.x - currentRotation.x, currentRotation.y - directionToPoint.y);
-        // if (angle < 0f) {
-        //     angle += (Mathf.PI * 2);
-        // }              
-        angle *= Mathf.Rad2Deg;
-        Debug.Log("Angle:" + angle.ToString());
-        return Math.Abs(angle%360f) < maxAimAngle;
+        float angle = Vector2.SignedAngle(_wallPosition.currentFacing, directionToPoint);
+        
+        return Math.Abs(angle) < maxAimAngle;
     }
 
     public void DrawMoveArcTriangle() {
-        float depth = 50f;
-        float currentRotation = _wallPosition.GetRotationAtCurrentAngle();
+        float depth = 5000f;
+        float currentRotation = Vector2.SignedAngle(Vector2.up,_wallPosition.currentFacing);
         float maxRot = currentRotation + maxAimAngle;
+        if (maxRot < 0f) {
+            maxRot += 360f;
+        }
         float minRot = currentRotation - maxAimAngle;
+        if (minRot < 0f) {
+            minRot += 360f;
+        }
         maxRot *= Mathf.Deg2Rad;
         minRot *= Mathf.Deg2Rad;
-        Vector2 maxPoint1 = new Vector2(depth * Mathf.Sin(maxRot), depth * Mathf.Cos(maxRot));
-        Vector2 maxPoint2 = new Vector2(depth * Mathf.Sin(minRot), depth * Mathf.Cos(minRot));
+        Vector2 maxPoint1 = new Vector2(depth * Mathf.Sin(maxRot), -depth * Mathf.Cos(maxRot));
+        Vector2 maxPoint2 = new Vector2(depth * Mathf.Sin(minRot), -depth * Mathf.Cos(minRot));
 
         Mesh triangle = new Mesh();
         triangle.vertices = new Vector3[] {
             transform.position,
-            (Vector3) maxPoint2 + transform.position,
-            (Vector3) maxPoint1 + transform.position,
-            
+            transform.position - (Vector3) maxPoint1,
+            transform.position - (Vector3) maxPoint2,
         };
         triangle.uv = new Vector2[] {
             Vector3.zero,
-            maxPoint2,
             maxPoint1,
+            maxPoint2,
         };
         triangle.triangles = new int[] {0, 1, 2};
         _moveArcFilter.mesh = triangle;

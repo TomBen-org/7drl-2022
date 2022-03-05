@@ -20,40 +20,38 @@ public class TurnDirector : MonoBehaviour
 
     private MovementRaycaster _caster;
     private WallPosition _wallPosition;
+    private RoomManager _roomManager;
 
     private void Awake() {
         _caster = GetComponent<MovementRaycaster>();
         _wallPosition = GetComponent<WallPosition>();
+        _roomManager = FindObjectOfType<RoomManager>();
     }
 
     private void Start() {
         DOTween.Init();
+        _roomManager.Setup();
     }
     
     private void Update() {
         switch (currentPhase) {
             case Phase.Start:
                 _caster.DrawMoveArcTriangle();
-                Debug.Log("Beginning MoveSelect Phase");
                 NextPhase();
                 break;
             case Phase.MoveSelect:
                 _caster.PhaseUpdate();
                 break;
             case Phase.ActionSelect:
-                Debug.Log("Skipping ActionSelect Phase");
                 NextPhase();
                 break;
             case Phase.Moving:
-                //Debug.Log("Moving Player");
-                _wallPosition.PhaseUpdate();
                 break;
             case Phase.Enemies:
                 _wallPosition.SetFacing();
                 NextPhase();
                 break;
             case Phase.End:
-                Debug.Log("Starting a new Turn");
                 EndTurn();
                 break;
             default:
@@ -90,8 +88,10 @@ public class TurnDirector : MonoBehaviour
     
     private void EndTurn() {
         //refresh player abilities
+        _roomManager.CheckForRoomChange();
         _caster.ResetTargetPoint();
         currentTurn++;
         currentPhase = Phase.Start;
+        
     }
 }
