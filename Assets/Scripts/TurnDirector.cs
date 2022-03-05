@@ -38,7 +38,8 @@ public class TurnDirector : MonoBehaviour
             case Phase.Moving:
                 Debug.Log("Moving Player");
                 transform.position = _caster.GetNextPosition();
-                transform.LookAt(_caster.GetNextFacing() + (Vector2) transform.position);
+                float angle = _caster.GetNextFacing();
+                transform.rotation = Quaternion.Euler(new Vector3(0,0,angle));
                 NextPhase();
                 break;
             case Phase.End:
