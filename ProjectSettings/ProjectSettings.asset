@@ -561,7 +561,22 @@ PlayerSettings:
   webGLLinkerTarget: 1
   webGLThreadsSupport: 0
   webGLDecompressionFallback: 0
-  scriptingDefineSymbols: {}
+  scriptingDefineSymbols:
+    1: INPUT_SYSTEM_PACKAGE
+    4: INPUT_SYSTEM_PACKAGE
+    7: INPUT_SYSTEM_PACKAGE
+    13: INPUT_SYSTEM_PACKAGE
+    14: INPUT_SYSTEM_PACKAGE
+    19: INPUT_SYSTEM_PACKAGE
+    21: INPUT_SYSTEM_PACKAGE
+    25: INPUT_SYSTEM_PACKAGE
+    27: INPUT_SYSTEM_PACKAGE
+    28: INPUT_SYSTEM_PACKAGE
+    29: INPUT_SYSTEM_PACKAGE
+    30: INPUT_SYSTEM_PACKAGE
+    31: INPUT_SYSTEM_PACKAGE
+    32: INPUT_SYSTEM_PACKAGE
+    33: INPUT_SYSTEM_PACKAGE
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend: {}
@@ -580,8 +595,8 @@ PlayerSettings:
   apiCompatibilityLevelPerPlatform: {}
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
-  metroPackageName: 2D_BuiltInRenderer
-  metroPackageVersion: 
+  metroPackageName: 2DBuiltInRenderer
+  metroPackageVersion: 1.0.0.0
   metroCertificatePath: 
   metroCertificatePassword: 
   metroCertificateSubject: 
@@ -589,7 +604,7 @@ PlayerSettings:
   metroCertificateNotAfter: 0000000000000000
   metroApplicationDescription: 2D_BuiltInRenderer
   wsaImages: {}
-  metroTileShortName: 
+  metroTileShortName: 7drl-2022
   metroTileShowName: 0
   metroMediumTileShowName: 0
   metroLargeTileShowName: 0
@@ -647,7 +662,7 @@ PlayerSettings:
     m_VersionCode: 1
     m_VersionName: 
   apiCompatibilityLevel: 6
-  activeInputHandler: 0
+  activeInputHandler: 1
   cloudProjectId: 
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
