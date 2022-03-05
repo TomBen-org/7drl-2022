@@ -21,7 +21,7 @@ public class TurnDirector : MonoBehaviour
     private void Awake() {
         _caster = GetComponent<MovementRaycaster>();
     }
-
+    
     private void Update() {
         switch (currentPhase) {
             case Phase.Start:
@@ -38,8 +38,7 @@ public class TurnDirector : MonoBehaviour
             case Phase.Moving:
                 Debug.Log("Moving Player");
                 transform.position = _caster.GetNextPosition();
-                float angle = _caster.GetNextFacing();
-                transform.rotation = Quaternion.Euler(new Vector3(0,0,angle));
+                GetComponent<WallPosition>().SetFacing();
                 NextPhase();
                 break;
             case Phase.End:
