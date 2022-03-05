@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class MovementRaycaster : MonoBehaviour {
@@ -88,4 +89,34 @@ public class MovementRaycaster : MonoBehaviour {
         nearPoint *= 0.99f;
         return IsTargetPointValid() ? (nearPoint + (Vector2) transform.position) : transform.position;
     }
+
+    public Vector2 GetNextFacing() {
+        var vectorsToTry = new Dictionary<Vector2, float>();
+        vectorsToTry.Add(Vector2.left, 999f);
+        vectorsToTry.Add(Vector2.up, 999f);
+        vectorsToTry.Add(Vector2.right, 999f);
+        vectorsToTry.Add(Vector2.down, 999f);
+
+        int mask = LayerMask.GetMask("MoveTarget");
+        
+        foreach (Vector2 key in vectorsToTry.Keys.ToArray()) {
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, key, 0.5f, mask);
+            if (hit.collider) {
+                float dist = Vector2.Distance(hit.point, transform.position);
+                Debug.Log(key.ToString() + dist.ToString());
+                vectorsToTry[key] = dist;
+            }
+        }
+
+        Vector2[] directionsToSort = vectorsToTry.Keys.ToArray();
+        Array.Sort(directionsToSort, (a,b) => {
+            float aDist = vectorsToTry[a];
+            float bDist = vectorsToTry[b];
+            return aDist < bDist ? 0 : 1;
+        });
+
+        Debug.Log(directionsToSort[0]);
+        return directionsToSort[0];
+    }
+    
 }
