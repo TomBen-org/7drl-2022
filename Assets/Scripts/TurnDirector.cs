@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 public class TurnDirector : MonoBehaviour
@@ -10,6 +11,7 @@ public class TurnDirector : MonoBehaviour
         MoveSelect,
         ActionSelect,
         Moving,
+        Enemies,
         End
     }
     
@@ -17,9 +19,15 @@ public class TurnDirector : MonoBehaviour
     public int currentTurn;
 
     private MovementRaycaster _caster;
+    private WallPosition _wallPosition;
 
     private void Awake() {
         _caster = GetComponent<MovementRaycaster>();
+        _wallPosition = GetComponent<WallPosition>();
+    }
+
+    private void Start() {
+        DOTween.Init();
     }
     
     private void Update() {
@@ -37,9 +45,11 @@ public class TurnDirector : MonoBehaviour
                 NextPhase();
                 break;
             case Phase.Moving:
-                Debug.Log("Moving Player");
-                transform.position = _caster.GetNextPosition();
-                GetComponent<WallPosition>().SetFacing();
+                //Debug.Log("Moving Player");
+                _wallPosition.PhaseUpdate();
+                break;
+            case Phase.Enemies:
+                _wallPosition.SetFacing();
                 NextPhase();
                 break;
             case Phase.End:
@@ -62,9 +72,12 @@ public class TurnDirector : MonoBehaviour
                 break;
             case Phase.ActionSelect:
                 currentPhase = Phase.Moving;
+                _wallPosition.StartTweenMove(_caster.GetNextPosition());
                 break;
             case Phase.Moving:
-                transform.position = _caster.GetNextPosition();
+                currentPhase = Phase.Enemies;
+                break;
+            case Phase.Enemies:
                 currentPhase = Phase.End;
                 break;
             case Phase.End:
