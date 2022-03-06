@@ -706,6 +706,10 @@ PrefabInstance:
       propertyPath: m_Priority
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8121797543767499752, guid: 45e6446ea9a560142b2f8e3f4a86269f, type: 3}
+      propertyPath: m_Lens.m_SensorSize.x
+      value: 1.7777778
+      objectReference: {fileID: 0}
     - target: {fileID: 8160405513327505878, guid: 45e6446ea9a560142b2f8e3f4a86269f, type: 3}
       propertyPath: m_Name
       value: Room (1)
@@ -5152,6 +5156,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8121797543767499752, guid: 45e6446ea9a560142b2f8e3f4a86269f, type: 3}
+      propertyPath: m_Lens.m_SensorSize.x
+      value: 1.7777778
+      objectReference: {fileID: 0}
+    - target: {fileID: 8121797543767499752, guid: 45e6446ea9a560142b2f8e3f4a86269f, type: 3}
       propertyPath: m_Lens.OrthographicSize
       value: 6
       objectReference: {fileID: 0}
@@ -5244,6 +5252,10 @@ PrefabInstance:
     - target: {fileID: 8121797543767499752, guid: 45e6446ea9a560142b2f8e3f4a86269f, type: 3}
       propertyPath: m_Priority
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8121797543767499752, guid: 45e6446ea9a560142b2f8e3f4a86269f, type: 3}
+      propertyPath: m_Lens.m_SensorSize.x
+      value: 1.7777778
       objectReference: {fileID: 0}
     - target: {fileID: 8160405513327505878, guid: 45e6446ea9a560142b2f8e3f4a86269f, type: 3}
       propertyPath: m_Name
@@ -5412,7 +5424,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &679548522
 MonoBehaviour:
@@ -32316,6 +32328,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8121797543767499752, guid: 45e6446ea9a560142b2f8e3f4a86269f, type: 3}
+      propertyPath: m_Lens.m_SensorSize.x
+      value: 1.7777778
+      objectReference: {fileID: 0}
+    - target: {fileID: 8121797543767499752, guid: 45e6446ea9a560142b2f8e3f4a86269f, type: 3}
       propertyPath: m_Lens.OrthographicSize
       value: 9.23
       objectReference: {fileID: 0}
@@ -32911,7 +32927,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1527067716
 GameObject:
@@ -35492,7 +35508,7 @@ Transform:
   - {fileID: 1161364129}
   - {fileID: 632580601}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1659968497
 MonoBehaviour:
@@ -40277,7 +40293,7 @@ PrefabInstance:
       objectReference: {fileID: 679548520}
     - target: {fileID: 1472169185690639915, guid: 2a717d65752e0d14da7c169ceb89525c, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1472169185690639915, guid: 2a717d65752e0d14da7c169ceb89525c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -40328,9 +40344,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1659968496}
     m_Modifications:
+    - target: {fileID: 2757550655957224138, guid: 45e6446ea9a560142b2f8e3f4a86269f, type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8121797543767499752, guid: 45e6446ea9a560142b2f8e3f4a86269f, type: 3}
       propertyPath: m_Priority
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8121797543767499752, guid: 45e6446ea9a560142b2f8e3f4a86269f, type: 3}
+      propertyPath: m_Lens.m_SensorSize.x
+      value: 1.7777778
       objectReference: {fileID: 0}
     - target: {fileID: 8160405513327505878, guid: 45e6446ea9a560142b2f8e3f4a86269f, type: 3}
       propertyPath: m_Name
