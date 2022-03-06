@@ -14,7 +14,7 @@ public class AbilityTrigger : MonoBehaviour {
     
     private void OnTriggerEnter2D(Collider2D col) {
         if (col == _playerCollider) {
-            TriggerMe();    
+            TriggerMe();  
         }
     }
 

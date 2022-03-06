@@ -12,11 +12,9 @@ public class RoomManager : MonoBehaviour {
 
     void Awake() {
         _rooms = GetComponentsInChildren<Room>();
-        Debug.Log("Rooms found: " + _rooms.Length);
     }
 
     public void Setup() {
-        Debug.Log("Starting roomManager");
         SwapToRoom(0);
     }
 

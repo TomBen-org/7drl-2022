@@ -7,7 +7,7 @@ using UnityEngine;
 public class AbilityPlanner : MonoBehaviour {
     private List<AbilitySetting> _plannedAbilities;
 
-    public float acceptanceClickRange = 0.25f;
+    public float acceptanceClickRange = 0.5f;
 
     public List<Ability> abilities;  
     
@@ -94,9 +94,10 @@ public class AbilityPlanner : MonoBehaviour {
     }
 
     private void DeleteAllPlannedAbilities() {
-        for (int i = 0; i < _plannedAbilities.Count; i++) {
-            DeleteLastPlannedAbility();
+        foreach (var setting in _plannedAbilities) {
+            Destroy(setting.indicator);
         }
+        _plannedAbilities.Clear();
     }
     
     private void DeleteLastPlannedAbility() {
@@ -214,6 +215,11 @@ public class AbilityPlanner : MonoBehaviour {
     private void BuildAbilityObjects() {
         foreach (AbilitySetting setting in _plannedAbilities) {
             //build a object for each
+            GameObject trigger = Instantiate(abilities[setting.abilityIndex].triggerPrefabName);
+            Vector2 pos = setting.indicator.transform.position;
+            trigger.transform.position = pos;
+            AbilityTrigger at = trigger.GetComponent<AbilityTrigger>();
+            at.Setup(setting);
         }
         
         DeleteAllPlannedAbilities();

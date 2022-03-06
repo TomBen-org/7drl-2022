@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f9356682f8f0204aad0a1804c086154, type: 3}
   m_Name: StunGunAbility
   m_EditorClassIdentifier: 
-  triggerPrefabName: {fileID: 0}
+  triggerPrefabName: {fileID: 7892568518458558762, guid: 21d3d10476ed5b64db52627f43582d2f, type: 3}
   needsTarget: 1

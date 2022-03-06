@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f9356682f8f0204aad0a1804c086154, type: 3}
   m_Name: GenericAbility
   m_EditorClassIdentifier: 
-  triggerPrefabName: {fileID: 0}
-  needsTarget: 1
+  triggerPrefabName: {fileID: 2332569701197214950, guid: eb43edec7ac06f6499591f0a7bafb5c8, type: 3}
+  needsTarget: 0

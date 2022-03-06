@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 
 public class MovementRaycaster : MonoBehaviour {
-    private const float _acceptanceClickRange = 0.25f;
+    private const float _acceptanceClickRange = 0.5f;
     
     public Camera myCamera;
     public float maxAimAngle = 30f;
@@ -91,7 +91,7 @@ public class MovementRaycaster : MonoBehaviour {
     public Vector2 GetNextPosition() {
         Vector2 nearPoint =  targetPoint - (Vector2) transform.position;
         nearPoint *= 0.99f;
-        return IsTargetPointValid() ? (nearPoint + (Vector2) transform.position) : transform.position;
+        return nearPoint + (Vector2) transform.position;
     }
     
     public bool IsWithinViewCone(Vector2 point) {

@@ -21,7 +21,7 @@ public class Projectile: MonoBehaviour {
         }
 
         float dist = Vector2.Distance(movedTransform.position, setting.target);
-        Tween moveTween = movedTransform.DOMove(setting.target, moveSpeed*dist/10f);
+        Tween moveTween = movedTransform.DOMove(setting.target, dist/moveSpeed*10f);
         moveTween.SetEase(Ease.Linear);
         moveTween.OnComplete(() => { Destroy(gameObject); });
         _mover = moveTween;
