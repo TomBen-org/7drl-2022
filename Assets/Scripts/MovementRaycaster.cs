@@ -77,8 +77,6 @@ public class MovementRaycaster : MonoBehaviour {
         if (Input.GetMouseButtonUp(1)) {
             ResetTargetPoint();
         }
-    
-
     }
     
     public bool IsTargetPointValid() {
@@ -133,5 +131,40 @@ public class MovementRaycaster : MonoBehaviour {
         };
         triangle.triangles = new int[] {0, 1, 2};
         _moveArcFilter.mesh = triangle;
+    }
+    
+    public Vector2 GetClosestPointOnMoveLine() {
+        Vector2 mStart = transform.position;
+        Vector2 mEnd = GetNextPosition();
+        var mPos = (Vector2) myCamera.ScreenToWorldPoint(Input.mousePosition);
+
+        Vector2 a_to_p = mPos - mStart;
+        Vector2 a_to_b = mEnd - mStart;
+
+        float dist = Vector2.Dot(a_to_p, a_to_b) / a_to_b.sqrMagnitude;
+
+        dist = Math.Clamp(dist, 0.1f, 0.9f);
+        Vector2 closest = mStart+a_to_b*dist;
+        return closest;
+    }
+
+    public float GetPercentageOfLine(Vector2 lStart,Vector2 lEnd1,Vector2 lEnd2) {
+        float mag1 = (lEnd1 - lStart).magnitude;
+        float mag2 = (lEnd2 - lStart).magnitude;
+
+        return mag2 / mag1;
+    }
+
+    public Vector2 LinePercentToPos(Vector2 lStart, Vector2 lEnd, float percent) {
+        Vector2 vect = lEnd - lStart;
+        return (vect.normalized * percent) + lStart;
+    }
+
+    public void SetMoveArcState(bool state) {
+        _moveArcFilter.GetComponent<MeshRenderer>().enabled = state;
+    }
+
+    public void SetMoveLineState(bool state) {
+        _lineRenderer.enabled = state;
     }
 }
