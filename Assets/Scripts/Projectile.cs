@@ -14,14 +14,14 @@ public class Projectile: MonoBehaviour {
     }
 
     public void Setup(AbilitySetting setting) {
-        Transform movedTransform = transform;
+        Rigidbody2D movedRb = GetComponent<Rigidbody2D>();
 
         if (_mover != null) {
             _mover.Kill();
         }
 
-        float dist = Vector2.Distance(movedTransform.position, setting.target);
-        Tween moveTween = movedTransform.DOMove(setting.target, dist/moveSpeed*10f);
+        float dist = Vector2.Distance(movedRb.position, setting.target);
+        Tween moveTween = movedRb.DOMove(setting.target, dist/moveSpeed*10f);
         moveTween.SetEase(Ease.Linear);
         moveTween.OnComplete(() => { Destroy(gameObject); });
         _mover = moveTween;
@@ -33,18 +33,30 @@ public class Projectile: MonoBehaviour {
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D col) {
-        if (col.gameObject.layer == LayerMask.GetMask("MoveTarget")) {
-            Destroy(gameObject);
-        } else if (col.gameObject.layer == LayerMask.GetMask(targetLayerName)) {
+    private void OnTriggerEnter2D(Collider2D col) {
+        Debug.Log("Projectile collides");
+        int wallMask = LayerMask.NameToLayer("MoveTarget");
+        int targetMask = LayerMask.NameToLayer(targetLayerName);
+        
+        if (col.gameObject.layer == wallMask) {
+            Debug.Log("hit wall");
+            DestroyProjectile();
+        } else if (col.gameObject.layer == targetMask) {
+            Debug.Log("hit enemy");
             Body victim = col.transform.GetComponent<Body>();
             if (victim != null) {
                 ApplyEffect(victim);
+                DestroyProjectile();
             }
         }
     }
 
     protected virtual void ApplyEffect(Body target) {
         Debug.Log(target.gameObject.name + " hit with generic projectile");
+    }
+
+    private void DestroyProjectile() {
+        _mover.Kill();
+        Destroy(gameObject);
     }
 }

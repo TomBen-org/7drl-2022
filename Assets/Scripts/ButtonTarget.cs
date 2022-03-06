@@ -3,7 +3,7 @@
 public class ButtonTarget: MonoBehaviour {
     public bool state;
     
-    public virtual void InteractWith(bool state) {
-        this.state = state;
+    public virtual void InteractWith(bool newState) {
+        this.state = newState;
     }
 }

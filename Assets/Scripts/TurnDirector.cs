@@ -15,7 +15,8 @@ public class TurnDirector : MonoBehaviour
         Enemies,
         End
     }
-    
+
+    public bool playerFinishedMoving;
     public Phase currentPhase;
     public int currentTurn;
 
@@ -39,7 +40,9 @@ public class TurnDirector : MonoBehaviour
     private void Update() {
         switch (currentPhase) {
             case Phase.Start:
+                playerFinishedMoving = false;
                 _caster.DrawMoveArcTriangle();
+                _roomManager.StartPhaseUpdate();
                 NextPhase();
                 break;
             case Phase.MoveSelect:
@@ -52,18 +55,26 @@ public class TurnDirector : MonoBehaviour
                 NextPhase();
                 break;
             case Phase.Moving:
+                if (CheckTurnEnd()) {
+                    NextPhase();
+                }
                 break;
             case Phase.Enemies:
                 _wallJumper.SetFacing();
                 NextPhase();
                 break;
             case Phase.End:
+                _roomManager.EndPhaseUpdate();
                 EndTurn();
                 break;
             default:
                 break;
         }
         
+    }
+
+    private bool CheckTurnEnd() {
+        return playerFinishedMoving && FindObjectsOfType<Projectile>().Length == 0;
     }
 
     public void NextPhase() {

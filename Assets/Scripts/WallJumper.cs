@@ -27,7 +27,9 @@ public class WallJumper: WallPosition {
         }
 
         Tween moveTween = movedTransform.DOMove(position, jumpTime);
-        moveTween.OnComplete(_director.NextPhase);
+        moveTween.OnComplete(()=> {
+            _director.playerFinishedMoving = true;
+        });
         _mover = moveTween;
     }
 }

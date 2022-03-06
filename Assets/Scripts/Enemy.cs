@@ -11,7 +11,7 @@ public class Enemy : MonoBehaviour {
     }
 
     public virtual void StartUpdate() {
-        
+        _body.UpdateStates();
     }
 
     public virtual void EndUpdate() {
