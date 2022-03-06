@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class AbilityTrigger : MonoBehaviour {
     private Collider2D _playerCollider;
-    private AbilitySetting _setting;
+    protected AbilitySetting _setting;
 
     void Awake() {
         _playerCollider = FindObjectOfType<TurnDirector>().GetComponent<Collider2D>();

@@ -1,18 +1,30 @@
-﻿using System;
-using Unity.VisualScripting;
+﻿using DG.Tweening;
 using UnityEngine;
 
 public class Projectile: MonoBehaviour {
 
+    public float moveSpeed = 10f;
     public TurnDirector.Phase updatePhase;
     public string targetLayerName;
     private TurnDirector _director;
+    private Tween _mover;
+    
     private void Awake() {
         _director = FindObjectOfType<TurnDirector>();
     }
 
-    private void Start() {
-        
+    public void Setup(AbilitySetting setting) {
+        Transform movedTransform = transform;
+
+        if (_mover != null) {
+            _mover.Kill();
+        }
+
+        float dist = Vector2.Distance(movedTransform.position, setting.target);
+        Tween moveTween = movedTransform.DOMove(setting.target, moveSpeed*dist/10f);
+        moveTween.SetEase(Ease.Linear);
+        moveTween.OnComplete(() => { Destroy(gameObject); });
+        _mover = moveTween;
     }
 
     private void Update() {

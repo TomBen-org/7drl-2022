@@ -9,6 +9,8 @@ public class AbilityPlanner : MonoBehaviour {
 
     public float acceptanceClickRange = 0.25f;
 
+    public List<Ability> abilities;  
+    
     public enum InnerPhase {
         Start,
         Selection,
@@ -82,6 +84,10 @@ public class AbilityPlanner : MonoBehaviour {
                 }
                 break;
             case InnerPhase.Targeting:
+                if (abilities[_selectedAbility].needsTarget == false) {
+                    AcceptAbilityPlacement();
+                    return;
+                }
                 TargetingPhaseUpdate();
                 break;
         }
