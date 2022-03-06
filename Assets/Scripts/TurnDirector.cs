@@ -20,13 +20,13 @@ public class TurnDirector : MonoBehaviour
     public int currentTurn;
 
     private MovementRaycaster _caster;
-    private WallPosition _wallPosition;
+    private WallJumper _wallJumper;
     private RoomManager _roomManager;
     private AbilityPlanner _planner;
 
     private void Awake() {
         _caster = GetComponent<MovementRaycaster>();
-        _wallPosition = GetComponent<WallPosition>();
+        _wallJumper = GetComponent<WallJumper>();
         _roomManager = FindObjectOfType<RoomManager>();
         _planner = FindObjectOfType<AbilityPlanner>();
     }
@@ -54,7 +54,7 @@ public class TurnDirector : MonoBehaviour
             case Phase.Moving:
                 break;
             case Phase.Enemies:
-                _wallPosition.SetFacing();
+                _wallJumper.SetFacing();
                 NextPhase();
                 break;
             case Phase.End:
@@ -83,7 +83,7 @@ public class TurnDirector : MonoBehaviour
             case Phase.MoveBegin:
                 currentPhase = Phase.Moving;
                 _caster.SetMoveLineState(false);
-                _wallPosition.StartTweenMove(_caster.GetNextPosition());
+                _wallJumper.StartTweenMove(_caster.GetNextPosition());
                 break;
             case Phase.Moving:
                 currentPhase = Phase.Enemies;
@@ -100,6 +100,7 @@ public class TurnDirector : MonoBehaviour
     }
 
     public void CancelPlanningPhase() {
+        _caster.SetMoveArcState(true);
         currentPhase = Phase.MoveSelect;
     }
     

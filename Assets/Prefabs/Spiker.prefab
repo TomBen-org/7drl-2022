@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 2899839017116725775}
   - component: {fileID: 2899839017116725774}
   - component: {fileID: 2899839017116725772}
-  - component: {fileID: 2899839017116725760}
   - component: {fileID: 160371673398595057}
   - component: {fileID: 6126408147627387548}
   m_Layer: 7
@@ -29,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2899839017116725771}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 16.61, y: -1.73, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -109,18 +108,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &2899839017116725760
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2899839017116725771}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d02310c6e18dd5a4fa64aeb3b8b863f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!95 &160371673398595057
 Animator:
   serializedVersion: 4

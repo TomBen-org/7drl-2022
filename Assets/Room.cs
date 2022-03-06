@@ -1,9 +1,5 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Cinemachine;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 
 public class Room : MonoBehaviour {
     private CinemachineVirtualCamera _vcam;
@@ -13,6 +9,7 @@ public class Room : MonoBehaviour {
     private RoomManager _manager;
 
     public bool playerInExitZone;
+    public Enemy[] enemies;
 
     void Awake() {
         _spawnPoint = transform.Find("SpawnPoint");
@@ -28,7 +25,7 @@ public class Room : MonoBehaviour {
     public void Init(RoomManager manager) {
         playerInExitZone = false;
         _manager = manager;
-        _manager.player.GetComponent<WallPosition>().InstantMove(_spawnPoint.position);
+        _manager.player.GetComponent<WallJumper>().InstantMove(_spawnPoint.position);
         playerCollider = _manager.player.GetComponent<Collider2D>();
         _endZone.Setup(this);
     }

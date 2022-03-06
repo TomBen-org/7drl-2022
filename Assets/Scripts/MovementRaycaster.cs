@@ -15,13 +15,13 @@ public class MovementRaycaster : MonoBehaviour {
     
     private LineRenderer _lineRenderer;
     private TurnDirector _director;
-    private WallPosition _wallPosition;
+    private WallJumper _wallJumper;
     private MeshFilter _moveArcFilter;
 
     private void Awake() {
         _lineRenderer = transform.Find("LineRenderer").GetComponent<LineRenderer>();
         _moveArcFilter = FindObjectOfType<MoveArcIndicator>().GetComponent<MeshFilter>();
-        _wallPosition = GetComponent<WallPosition>();
+        _wallJumper = GetComponent<WallJumper>();
         _director = GetComponent<TurnDirector>();
     }
 
@@ -97,14 +97,14 @@ public class MovementRaycaster : MonoBehaviour {
     public bool IsWithinViewCone(Vector2 point) {
         
         Vector2 directionToPoint = point - (Vector2) transform.position;
-        float angle = Vector2.SignedAngle(_wallPosition.currentFacing, directionToPoint);
+        float angle = Vector2.SignedAngle(_wallJumper.currentFacing, directionToPoint);
         
         return Math.Abs(angle) < maxAimAngle;
     }
 
     public void DrawMoveArcTriangle() {
         float depth = 5000f;
-        float currentRotation = Vector2.SignedAngle(Vector2.up,_wallPosition.currentFacing);
+        float currentRotation = Vector2.SignedAngle(Vector2.up,_wallJumper.currentFacing);
         float maxRot = currentRotation + maxAimAngle;
         if (maxRot < 0f) {
             maxRot += 360f;

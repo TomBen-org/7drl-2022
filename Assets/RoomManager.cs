@@ -42,4 +42,22 @@ public class RoomManager : MonoBehaviour {
             SwapToRoom(nextRoom);
         }
     }
+    
+    public void StartPhaseUpdate() {
+        foreach (var enemy in _currentRoom.enemies) {
+            enemy.StartUpdate();
+        }
+    }
+
+    public void EndPhaseUpdate() {
+        foreach (var enemy in _currentRoom.enemies) {
+            enemy.EndUpdate();
+        }
+    }
+
+    public void UpdateEnemyVision() {
+        foreach (var enemy in _currentRoom.enemies) {
+            enemy.UpdateVision();
+        }
+    }
 }

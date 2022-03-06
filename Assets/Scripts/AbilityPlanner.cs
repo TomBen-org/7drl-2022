@@ -149,10 +149,6 @@ public class AbilityPlanner : MonoBehaviour {
         LineRenderer _lineRenderer = _currentPlacementIndicator.GetComponentInChildren<LineRenderer>();
         Vector2 abilityPos = _currentPlacementIndicator.transform.position;
         
-        // if (Input.GetMouseButtonDown(0) && Vector2.Distance(_currentTargetPoint, worldMousePos) > acceptanceClickRange) {
-        //     _targetRegistered = false;
-        // }
-
         if (Input.GetMouseButtonDown(0) && _currentTargetPoint != Vector2.negativeInfinity) {
             //move on if the player clicks in the same place as an existing, valid location.
             if (_targetRegistered) {

@@ -4,17 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class WallPosition : MonoBehaviour {
     public Vector2 currentFacing;
-    public float jumpTime = 0.5f;
-
-    private UnityEvent _moveCompleteEvent;
-
-    private Tween _mover;
-    
-    private TurnDirector _director;
     
     private Dictionary<Vector2,float> facingSettings = new Dictionary<Vector2,float>() {
         {Vector2.left, 270f},
@@ -23,17 +15,10 @@ public class WallPosition : MonoBehaviour {
         {Vector2.down, 0f},
     };
 
-    private void Awake() {
-        _director = GetComponent<TurnDirector>();
+    public virtual void Start() {
+        InstantMove(transform.position);
     }
-
-    public void Start() {
-        if (_moveCompleteEvent == null) {
-            _moveCompleteEvent = new UnityEvent();
-        }
-        _moveCompleteEvent.AddListener(delegate { _director.NextPhase(); });
-    }
-
+    
     public float GetRotationAtCurrentAngle() {
         return facingSettings[currentFacing];
     }
@@ -43,22 +28,6 @@ public class WallPosition : MonoBehaviour {
         SetFacing();
     }
 
-    public void StartTweenMove(Vector2 position) {
-        Transform movedTransform = transform;
-
-        if (_mover != null) {
-            _mover.Kill();
-        }
-
-        Tween moveTween = movedTransform.DOMove(position, jumpTime);
-        moveTween.OnComplete(_director.NextPhase);
-        _mover = moveTween;
-    }
-
-    public void PhaseUpdate() {
-        
-    }
-    
     public void Stick(Vector2 position) {
         var vectorsToTry = new Dictionary<Vector2, float> {
             {Vector2.left, 999f},
