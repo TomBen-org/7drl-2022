@@ -63,7 +63,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 898ac3733b1d47898fd2274bcc02bcb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 150
+  moveSpeed: 50
   updatePhase: 4
   targetLayerName: Enemy
   effectTurns: 2
