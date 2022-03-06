@@ -14,10 +14,15 @@ public class Room : MonoBehaviour {
 
     public bool playerInExitZone;
 
-    private void Awake() {
+    void Awake() {
         _spawnPoint = transform.Find("SpawnPoint");
         _vcam = GetComponentInChildren<CinemachineVirtualCamera>();
         _endZone = GetComponentInChildren<EndZone>();
+        
+        Grid grid = FindObjectOfType<Grid>();
+        Vector3Int cell = grid.WorldToCell(_spawnPoint.transform.position);
+        Vector2 newPos = grid.GetCellCenterWorld(cell);
+        _spawnPoint.transform.position = newPos;
     }
 
     public void Init(RoomManager manager) {
