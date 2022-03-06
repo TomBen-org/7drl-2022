@@ -34,15 +34,12 @@ public class Projectile: MonoBehaviour {
     }
 
     private void OnTriggerEnter2D(Collider2D col) {
-        Debug.Log("Projectile collides");
         int wallMask = LayerMask.NameToLayer("MoveTarget");
         int targetMask = LayerMask.NameToLayer(targetLayerName);
         
         if (col.gameObject.layer == wallMask) {
-            Debug.Log("hit wall");
             DestroyProjectile();
         } else if (col.gameObject.layer == targetMask) {
-            Debug.Log("hit enemy");
             Body victim = col.transform.GetComponent<Body>();
             if (victim != null) {
                 ApplyEffect(victim);

@@ -6,7 +6,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour {
     protected Body _body;
 
-    private void Awake() {
+    public virtual void Awake() {
         _body = GetComponent<Body>();
     }
 

@@ -95,9 +95,9 @@ GameObject:
   - component: {fileID: 8157212325759543487}
   - component: {fileID: 8157212325759543486}
   - component: {fileID: 4951067321278713943}
-  - component: {fileID: 7900714511300307461}
   - component: {fileID: 10738620599735504}
   - component: {fileID: 8266090250805641183}
+  - component: {fileID: 2763337035882410009}
   m_Layer: 7
   m_Name: SwitchTarget
   m_TagString: Untagged
@@ -150,19 +150,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.45
---- !u!114 &7900714511300307461
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8157212325759543483}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93e29986cd75450db417cfacfb09de05, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stunnedTurns: 0
 --- !u!114 &10738620599735504
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,3 +184,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &2763337035882410009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8157212325759543483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9b1740220ce460493e60ec8218414b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stunnedTurns: 0
+  statusRenderer: {fileID: 9072660728861696000}
+  stunnedSprite: {fileID: -1709907653, guid: 5cad4fa2cf1a0d648bc031860e47c937, type: 3}

@@ -43,12 +43,13 @@ public class MovementRaycaster : MonoBehaviour {
             Vector2 targetDirection = worldMousePos - transform.position;
 
             int mask = LayerMask.GetMask("MoveTarget", "Enemy");
+            int wallMask = LayerMask.NameToLayer("MoveTarget");
 
             RaycastHit2D hit = Physics2D.Raycast(transform.position, targetDirection, 5000f, mask);
 
             if (hit.collider) {
                 _lineRenderer.SetPositions(new Vector3[] {transform.position, hit.point});
-                if (hit.collider.transform.GetComponent<Enemy>() != null || IsWithinViewCone(hit.point) == false) {
+                if (hit.collider.gameObject.layer != wallMask || IsWithinViewCone(hit.point) == false) {
                     _lineRenderer.endColor = Color.red;
                     targetPoint = Vector2.negativeInfinity;
                 }
