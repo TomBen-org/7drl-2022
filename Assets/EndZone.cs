@@ -17,7 +17,6 @@ public class EndZone : MonoBehaviour {
     }
     
     public void OnTriggerEnter2D(Collider2D col) {
-        Debug.Log("entering exit zone collider");
         if (col == _room.playerCollider) {
             _room.playerInExitZone = true;
         }
