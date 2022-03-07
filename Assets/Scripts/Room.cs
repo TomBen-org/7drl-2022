@@ -12,6 +12,7 @@ public class Room : MonoBehaviour {
     public Enemy[] enemies;
 
     public Ability[] abilities;
+    private bool _initialized;
 
     void Awake() {
         _spawnPoint = transform.Find("SpawnPoint");
