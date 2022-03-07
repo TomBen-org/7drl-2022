@@ -12,7 +12,8 @@ public class TurnDirector : MonoBehaviour
         ActionSelect,
         MoveBegin,
         Moving,
-        Enemies,
+        Enemy,
+        EnemyShooting,
         End
     }
 
@@ -63,9 +64,14 @@ public class TurnDirector : MonoBehaviour
                     NextPhase();
                 }
                 break;
-            case Phase.Enemies:
-                //_wallJumper.SetFacing();
+            case Phase.Enemy:
+                _roomManager.EnemiesGenerateProjectiles();
                 NextPhase();
+                break;
+            case Phase.EnemyShooting:
+                if (CheckShootingOver()) {
+                    NextPhase();
+                }
                 break;
             case Phase.End:
                 _roomManager.EndPhaseUpdate();
@@ -75,6 +81,10 @@ public class TurnDirector : MonoBehaviour
                 break;
         }
         
+    }
+
+    private bool CheckShootingOver() {
+        return FindObjectsOfType<Projectile>().Length == 0;
     }
 
     private bool CheckTurnEnd() {
@@ -87,6 +97,7 @@ public class TurnDirector : MonoBehaviour
                 currentPhase = Phase.MoveSelect;
                 _caster.SetMoveArcState(true);
                 _caster.SetMoveLineState(true);
+                _roomManager.SetEnemyIndicatorState(true);
                 break;
             case Phase.MoveSelect:
                 _caster.SetMoveArcState(false);
@@ -99,11 +110,19 @@ public class TurnDirector : MonoBehaviour
                 currentPhase = Phase.Moving;
                 _caster.SetMoveLineState(false);
                 _wallJumper.StartTweenMove(_caster.GetNextPosition());
+                _roomManager.SetEnemyIndicatorState(false);
                 break;
             case Phase.Moving:
-                currentPhase = Phase.Enemies;
+                if (_roomManager.currentRoom.playerInExitZone) {
+                    currentPhase = Phase.End;
+                    return;
+                }
+                currentPhase = Phase.Enemy;
                 break;
-            case Phase.Enemies:
+            case Phase.Enemy:
+                currentPhase = Phase.EnemyShooting;
+                break;
+            case Phase.EnemyShooting:
                 currentPhase = Phase.End;
                 break;
             case Phase.End:
@@ -120,7 +139,6 @@ public class TurnDirector : MonoBehaviour
     }
     
     private void EndTurn() {
-        //refresh player abilities
         _roomManager.CheckForRoomChange();
         _caster.ResetTargetPoint();
         currentTurn++;

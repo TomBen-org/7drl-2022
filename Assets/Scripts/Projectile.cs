@@ -15,15 +15,25 @@ public class Projectile: MonoBehaviour {
         _director = FindObjectOfType<TurnDirector>();
     }
 
+    public void Setup(Vector2 target) {
+        SetupTween(target);
+    }
+    
     public void Setup(AbilitySetting setting) {
-        Rigidbody2D movedRb = GetComponent<Rigidbody2D>();
+        SetupTween(setting.target);
+    }
+    
+
+    public void SetupTween(Vector2 target) {
+        Transform movedT = transform;
+        Vector2 targetPos = new Vector2(target.x, target.y);
 
         if (_mover != null) {
             _mover.Kill();
         }
 
-        float dist = Vector2.Distance(movedRb.position, setting.target);
-        Tween moveTween = movedRb.DOMove(setting.target, dist/moveSpeed*10f);
+        float dist = Vector2.Distance(movedT.position, targetPos);
+        Tween moveTween = movedT.DOMove(targetPos, dist/moveSpeed*10f);
         moveTween.SetEase(ease);
         moveTween.OnComplete(() => { Destroy(gameObject); });
         _mover = moveTween;

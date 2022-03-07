@@ -230,6 +230,7 @@ MonoBehaviour:
   abilities:
   - {fileID: 11400000, guid: 2905d2868fc3c8d4b94c64ced0758c64, type: 2}
   - {fileID: 11400000, guid: 30ef7aca6d801294da0a5b17a4875cd0, type: 2}
+  abilityEnergy: []
   placementIndicatorPrefab: {fileID: 6414938203773532144, guid: 00864ce1e7369074391cfe566eb97d3b, type: 3}
   currentPhase: 0
 --- !u!50 &5309276281402122471
@@ -293,6 +294,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentFacing: {x: 0, y: 0}
   jumpTime: 1.5
+  landingExplosionPrefab: {fileID: 7824881431569940451, guid: 0ad6af0a1e8a5e648ac2b16b7e9a3cd1, type: 3}
 --- !u!1 &4340172504049150338
 GameObject:
   m_ObjectHideFlags: 0
@@ -319,7 +321,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4340172504049150338}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.367, z: 0}
+  m_LocalPosition: {x: 0, y: 0.12, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

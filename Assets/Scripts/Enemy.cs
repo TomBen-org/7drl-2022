@@ -14,11 +14,19 @@ public class Enemy : MonoBehaviour {
         _body.UpdateStates();
     }
 
+    public virtual void ShootingPhase() {
+        
+    }
+
     public virtual void EndUpdate() {
         
     }
 
-    public virtual void UpdateVision() {
+    public virtual void UpdateVision(Vector2 target) {
+           
+    }
+
+    public virtual void SetIndicatorState(bool state) {
         
     }
 }

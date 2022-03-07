@@ -28,7 +28,7 @@ public class RoomManager : MonoBehaviour {
         currentRoom.Init(this);
         
     }
-
+    
     public void ActivateRoomCamera(int index) {
         foreach (Room room in _rooms) {
             room.SetCameraOff();
@@ -59,9 +59,21 @@ public class RoomManager : MonoBehaviour {
         }
     }
 
-    public void UpdateEnemyVision() {
+    public void UpdateEnemyVision(Vector2 target) {
         foreach (var enemy in currentRoom.enemies) {
-            enemy.UpdateVision();
+            enemy.UpdateVision(target);
+        }
+    }
+
+    public void EnemiesGenerateProjectiles() {
+        foreach (var enemy in currentRoom.enemies) {
+            enemy.ShootingPhase();
+        }
+    }
+
+    public void SetEnemyIndicatorState(bool state) {
+        foreach (var enemy in currentRoom.enemies) {
+            enemy.SetIndicatorState(state);
         }
     }
 }

@@ -17,32 +17,54 @@ public class MovementRaycaster : MonoBehaviour {
     private TurnDirector _director;
     private WallJumper _wallJumper;
     private MeshFilter _moveArcFilter;
+    private RoomManager _roomManager;
 
     private void Awake() {
         _lineRenderer = transform.Find("LineRenderer").GetComponent<LineRenderer>();
         _moveArcFilter = FindObjectOfType<MoveArcIndicator>().GetComponent<MeshFilter>();
         _wallJumper = GetComponent<WallJumper>();
         _director = GetComponent<TurnDirector>();
+        _roomManager = FindObjectOfType<RoomManager>();
     }
 
     public void PhaseUpdate()
     {
         var worldMousePos = myCamera.ScreenToWorldPoint(Input.mousePosition);
+
+        if (Input.GetMouseButtonUp(0)) {
+            //move on if the player clicks in the same place as an existing, valid location.
+            if (_registered) {
+                if (IsTargetPointValid() && Vector2.Distance(targetPoint, worldMousePos) < _acceptanceClickRange) {
+                    
+                    _director.NextPhase();
+                    return;
+                }
+            }
+            else if (IsTargetPointValid()) {
+                _registered = true;
+                _roomManager.SetEnemyIndicatorState(true);
+                return;
+            }
+        }
         
-        if (Input.GetKeyDown(KeyCode.Space) && IsTargetPointValid()) {
-            _director.NextPhase();
-            return;
+        if (Input.GetMouseButtonDown(0)){
+            if (Vector2.Distance(targetPoint, worldMousePos) > _acceptanceClickRange) {
+                _registered = false;
+                return;
+            }
+
+            if (IsTargetPointValid()) {
+                _roomManager.SetEnemyIndicatorState(false);
+                return;
+            }
+            
         }
 
-        if (Input.GetMouseButtonDown(0) && Vector2.Distance(targetPoint, worldMousePos) > _acceptanceClickRange) {
-            _registered = false;
-        }
-        
         if (Input.GetMouseButton(0)) {
             //shoot a ray at the mouse
             Vector2 targetDirection = worldMousePos - transform.position;
 
-            int mask = LayerMask.GetMask("MoveTarget", "Enemy");
+            int mask = LayerMask.GetMask("MoveTarget","Enemy");
             int wallMask = LayerMask.NameToLayer("MoveTarget");
 
             RaycastHit2D hit = Physics2D.Raycast(transform.position, targetDirection, 5000f, mask);
@@ -56,27 +78,24 @@ public class MovementRaycaster : MonoBehaviour {
                 else {
                     _lineRenderer.endColor = Color.green;
                     targetPoint = hit.point;
+                    _roomManager.UpdateEnemyVision(targetPoint);
                 }
             }
             else {
                 targetPoint = Vector2.negativeInfinity;
             }
+            
+            return;
         }
-
-        if (Input.GetMouseButtonUp(0)) {
-            //move on if the player clicks in the same place as an existing, valid location.
-            if (_registered) {
-                if (IsTargetPointValid() && Vector2.Distance(targetPoint, worldMousePos) < _acceptanceClickRange) {
-                    _director.NextPhase();
-                }
-            }
-            else if (IsTargetPointValid()) {
-                _registered = true;
-            }
-        }
-
+        
         if (Input.GetMouseButtonUp(1)) {
             ResetTargetPoint();
+            return;
+        }
+    
+        
+        if (Input.GetKeyDown(KeyCode.Space) && IsTargetPointValid()) {
+            _director.NextPhase();
         }
     }
     
