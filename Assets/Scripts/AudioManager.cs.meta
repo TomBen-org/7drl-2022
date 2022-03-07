@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: e9e80af850d1bfb4c859ee5005c631fa
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - interactClip: {fileID: 8300000, guid: 0c283a0e20577714d8970db39ba6bada, type: 3}
+  - negativeInteractClip: {fileID: 8300000, guid: b260fb755220696418aa9c7436e1a4ec, type: 3}
+  - positiveInteractClip: {fileID: 8300000, guid: 1f07a232b233590418d723589e231262, type: 3}
+  - dieClip: {fileID: 8300000, guid: edcac264e9c20df4b8c84eaf947c6322, type: 3}
+  - spawnClip: {fileID: 8300000, guid: 7c9ff4136d3c6694386bfe6a410cc3fe, type: 3}
+  - jumpInitClip: {fileID: 8300000, guid: 02bac10ad3d12934c906145bea873b29, type: 3}
+  - jumpLandingClip: {fileID: 8300000, guid: 534da7a9737f328408902dc96880251f, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
