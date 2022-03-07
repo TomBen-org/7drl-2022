@@ -16,4 +16,4 @@ MonoBehaviour:
   needsTarget: 0
   buttonId: Ability2
   maxPlacements: 3
-  perTurnRecharge: 3
+  perTurnRecharge: 0.5
