@@ -253,8 +253,8 @@ MonoBehaviour:
     SignalSource: {fileID: 3811300792941565783}
     Selectable: {fileID: 2450257697488083369}
   Id:
-    Category: None
-    Name: None
+    Category: Game
+    Name: Ability2
     Custom: 0
 --- !u!222 &6119119253696043511
 CanvasRenderer:
@@ -2447,8 +2447,8 @@ MonoBehaviour:
     SignalSource: {fileID: 5432979297194263165}
     Selectable: {fileID: 5432979297194263167}
   Id:
-    Category: None
-    Name: None
+    Category: Game
+    Name: Ability1
     Custom: 0
 --- !u!222 &5432979297194263159
 CanvasRenderer:

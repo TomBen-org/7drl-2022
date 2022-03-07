@@ -5,4 +5,7 @@ public class Ability : ScriptableObject
 {
     public GameObject triggerPrefabName;
     public bool needsTarget = true;
+    public string buttonId;
+    public int maxPlacements = 1;
+    public float perTurnRecharge = 1;
 }

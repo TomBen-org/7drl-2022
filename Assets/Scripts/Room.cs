@@ -11,6 +11,8 @@ public class Room : MonoBehaviour {
     public bool playerInExitZone;
     public Enemy[] enemies;
 
+    public Ability[] abilities;
+
     void Awake() {
         _spawnPoint = transform.Find("SpawnPoint");
         _vcam = GetComponentInChildren<CinemachineVirtualCamera>();
@@ -27,6 +29,7 @@ public class Room : MonoBehaviour {
         _manager = manager;
         _manager.player.GetComponent<WallJumper>().InstantMove(_spawnPoint.position);
         playerCollider = _manager.player.GetComponent<Collider2D>();
+        enemies = transform.Find("Enemies").GetComponentsInChildren<Enemy>();
         _endZone.Setup(this);
     }
     

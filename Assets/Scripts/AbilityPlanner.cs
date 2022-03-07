@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Doozy.Runtime.UIManager;
+using Doozy.Runtime.UIManager.Components;
 using Doozy.Runtime.UIManager.Containers;
 using UnityEngine;
 
@@ -9,7 +11,8 @@ public class AbilityPlanner : MonoBehaviour {
 
     public float acceptanceClickRange = 0.5f;
 
-    public List<Ability> abilities;  
+    public List<Ability> abilities;
+    public List<float> abilityEnergy;
     
     public enum InnerPhase {
         Start,
@@ -33,16 +36,19 @@ public class AbilityPlanner : MonoBehaviour {
         _director = FindObjectOfType<TurnDirector>();
         _caster = FindObjectOfType<MovementRaycaster>();
         _plannedAbilities = new List<AbilitySetting>();
+        abilityEnergy = new List<float>();
     }
 
     public void BeginPlanningPhase() {
         UIView.Show("Game","ActionBar");
+        RechargeAbilities();
+        UpdateButtonSelectability();
         currentPhase = InnerPhase.Selection;
     }
 
     public void CancelPlanningPhase() {
         UIView.Hide("Game","ActionBar");
-        DeleteAllPlannedAbilities();
+        DeleteAllPlannedAbilities(true);
         _director.CancelPlanningPhase();
         currentPhase = InnerPhase.Start;
     }
@@ -93,16 +99,21 @@ public class AbilityPlanner : MonoBehaviour {
         }
     }
 
-    private void DeleteAllPlannedAbilities() {
+    private void DeleteAllPlannedAbilities(bool refund) {
         foreach (var setting in _plannedAbilities) {
+            if (refund) {
+                abilityEnergy[setting.abilityIndex] += 1;    
+            }
             Destroy(setting.indicator);
         }
         _plannedAbilities.Clear();
+        
     }
     
     private void DeleteLastPlannedAbility() {
         AbilitySetting popped = _plannedAbilities[^1];
         Destroy(popped.indicator);
+        abilityEnergy[popped.abilityIndex] += 1;
         _plannedAbilities.Remove(popped);
     }
 
@@ -194,9 +205,19 @@ public class AbilityPlanner : MonoBehaviour {
             _currentPlacementIndicator
             );
         _plannedAbilities.Add(newSetting);
+        abilityEnergy[_selectedAbility]--;
         _currentPlacementIndicator = null;
         _selectedAbility = -1;
+        UpdateButtonSelectability();
         currentPhase = InnerPhase.Selection;
+    }
+
+    private void RechargeAbilities() {
+        for (int i = 0; i < abilities.Count; i++) {
+            Ability ability = abilities[i];
+            float energy = abilityEnergy[i] + ability.perTurnRecharge;
+            abilityEnergy[i] = Mathf.Min(energy,ability.maxPlacements);
+        }
     }
 
     private void CheckAcceptedPlanning() {
@@ -217,7 +238,37 @@ public class AbilityPlanner : MonoBehaviour {
             at.Setup(setting);
         }
         
-        DeleteAllPlannedAbilities();
+        DeleteAllPlannedAbilities(false);
+    }
+
+    private void UpdateButtonSelectability() {
+        for (int i = 0; i < abilities.Count; i++) {
+            Ability ability = abilities[i];
+            float energy = abilityEnergy[i];
+            
+            foreach (UIButton button in UIButton.GetButtons("Game",ability.buttonId)) {
+                button.interactable = (energy >= 1);
+            }
+        }
+    }
+
+    public void SetAbilities(Ability[] newAbilities) {
+        foreach (Ability ability in abilities) {
+            foreach (UIButton button in UIButton.GetButtons("Game",ability.buttonId)) {
+                button.gameObject.SetActive(false);
+            }
+        }
+        
+        abilities = newAbilities.ToList();
+        abilityEnergy.Clear();
+        
+        
+        foreach (Ability ability in abilities) {
+            abilityEnergy.Add(ability.maxPlacements);
+            foreach (UIButton button in UIButton.GetButtons("Game",ability.buttonId)) {
+                button.gameObject.SetActive(true);
+            }
+        }
     }
 }
 

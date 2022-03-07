@@ -49,6 +49,10 @@ public class TurnDirector : MonoBehaviour
                 _caster.PhaseUpdate();
                 break;
             case Phase.ActionSelect:
+                if (_planner.abilities.Count == 0) {
+                    NextPhase();
+                    return;
+                }
                 _planner.PhaseUpdate();
                 break;
             case Phase.MoveBegin:

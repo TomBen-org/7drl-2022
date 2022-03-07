@@ -15,6 +15,12 @@ MonoBehaviour:
   Database:
     Items:
     - Category: Game
+      Name: Ability1
+    - Category: Game
+      Name: Ability2
+    - Category: Game
+      Name: Ability3
+    - Category: Game
       Name: EndTurn
     - Category: None
       Name: None

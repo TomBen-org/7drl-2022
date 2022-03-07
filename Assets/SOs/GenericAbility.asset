@@ -14,3 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   triggerPrefabName: {fileID: 2332569701197214950, guid: eb43edec7ac06f6499591f0a7bafb5c8, type: 3}
   needsTarget: 0
+  buttonId: Ability2
+  maxPlacements: 3
+  perTurnRecharge: 3

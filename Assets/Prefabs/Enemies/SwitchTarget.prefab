@@ -125,10 +125,10 @@ GameObject:
   m_Component:
   - component: {fileID: 8157212325759543487}
   - component: {fileID: 8157212325759543486}
-  - component: {fileID: 4951067321278713943}
   - component: {fileID: 10738620599735504}
   - component: {fileID: 8266090250805641183}
   - component: {fileID: 2763337035882410009}
+  - component: {fileID: 1307089782975031220}
   m_Layer: 7
   m_Name: SwitchTarget
   m_TagString: Untagged
@@ -166,22 +166,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentFacing: {x: 0, y: 0}
---- !u!58 &4951067321278713943
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8157212325759543483}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.45
 --- !u!114 &10738620599735504
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -232,3 +216,29 @@ MonoBehaviour:
   statusRenderer: {fileID: 9072660728861696000}
   stunExplosionPrefab: {fileID: 4564017752566198956, guid: 5dcc274ae488eb546b8aaee74eb5298d, type: 3}
   stunnedSprite: {fileID: -1709907653, guid: 5cad4fa2cf1a0d648bc031860e47c937, type: 3}
+--- !u!61 &1307089782975031220
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8157212325759543483}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.25}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0

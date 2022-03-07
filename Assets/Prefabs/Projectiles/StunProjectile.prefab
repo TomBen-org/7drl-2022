@@ -68,7 +68,7 @@ MonoBehaviour:
   moveSpeed: 50
   updatePhase: 4
   targetLayerName: Enemy
-  effectTurns: 1
+  effectTurns: 2
 --- !u!212 &675751294960838601
 SpriteRenderer:
   m_ObjectHideFlags: 0

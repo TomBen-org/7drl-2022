@@ -25,6 +25,9 @@ namespace Doozy.Runtime.UIManager
     {
         public enum Game
         {
+            Ability1,
+            Ability2,
+            Ability3,
             EndTurn
         }    
     }
