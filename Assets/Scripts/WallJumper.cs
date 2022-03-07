@@ -37,6 +37,7 @@ public class WallJumper: WallPosition {
     public void StartTweenMove(Vector2 destination) {
         _destination = destination;
         Transform movedTransform = transform;
+        AudioManager.Instance.PlayAudio(AudioManager.GameSfx.jumpInit);
 
         if (_mover != null) {
             _mover.Kill();
@@ -49,6 +50,7 @@ public class WallJumper: WallPosition {
             _spriteRenderer.enabled = true;
             Instantiate(landingExplosionPrefab, _spriteRenderer.transform.position, Quaternion.identity);
             _director.playerFinishedMoving = true;
+            AudioManager.Instance.PlayAudio(AudioManager.GameSfx.jumpLanding);
         });
         Instantiate(landingExplosionPrefab, _spriteRenderer.transform.position, Quaternion.identity);
         _spriteRenderer.enabled = false;

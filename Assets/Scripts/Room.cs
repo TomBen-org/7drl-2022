@@ -28,6 +28,7 @@ public class Room : MonoBehaviour {
         playerInExitZone = false;
         _manager = manager;
         _manager.player.GetComponent<WallJumper>().InstantMove(_spawnPoint.position);
+        AudioManager.Instance.PlayAudio(AudioManager.GameSfx.spawn);
         playerCollider = _manager.player.GetComponent<Collider2D>();
         enemies = transform.Find("Enemies").GetComponentsInChildren<Enemy>();
         _endZone.Setup(this);
