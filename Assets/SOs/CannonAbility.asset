@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f9356682f8f0204aad0a1804c086154, type: 3}
-  m_Name: GenericAbility
+  m_Name: CannonAbility
   m_EditorClassIdentifier: 
-  triggerPrefabName: {fileID: 2332569701197214950, guid: eb43edec7ac06f6499591f0a7bafb5c8, type: 3}
-  needsTarget: 0
-  buttonId: Ability3
-  maxPlacements: 3
+  triggerPrefabName: {fileID: 7892568518458558762, guid: f07f23a942b81af4597ac4012ac305d0, type: 3}
+  needsTarget: 1
+  buttonId: Ability2
+  maxPlacements: 1
   perTurnRecharge: 0.5

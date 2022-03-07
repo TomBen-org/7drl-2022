@@ -147,11 +147,18 @@ public class AbilityPlanner : MonoBehaviour {
     }
 
     //Selected via unity Event in the "Game/ActionBar" UIView
-    public void SelectAbility(int abilityIndex) {
+    public void SelectAbility(string id) {
         if (currentPhase == InnerPhase.Selection) {
-            _selectedAbility = abilityIndex;
-            BeginPlacementRound();
+            for (int i = 0; i < abilities.Count; i++) {
+                if (abilities[i].buttonId == id) {
+                    _selectedAbility = i;
+                    BeginPlacementRound();
+                    return;
+                }
+            }
+            Debug.LogError("Player clicked button for ability " + id + "but it was not available.");
         }
+        
     }
 
     public void TargetingPhaseUpdate()

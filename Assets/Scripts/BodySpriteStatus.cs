@@ -18,11 +18,14 @@ public class BodySpriteStatus: Body {
 
     public override void Stun(int turns) {
         base.Stun(turns);
-        UpdateStatus();
-        if (stunExplosionPrefab != null) {
-            Transform explosionLocation = transform.Find("ExplosionLocation").transform;
-            Instantiate(stunExplosionPrefab, explosionLocation.position, Quaternion.identity);
+        if (!immuneToStun) {
+            UpdateStatus();
+            if (stunExplosionPrefab != null) {
+                Transform explosionLocation = transform.Find("ExplosionLocation").transform;
+                Instantiate(stunExplosionPrefab, explosionLocation.position, Quaternion.identity);
+            }    
         }
+        
     }
 
     private void UpdateStatus() {

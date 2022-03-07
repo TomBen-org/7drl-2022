@@ -8,6 +8,8 @@ public class Projectile: MonoBehaviour {
     public string targetLayerName;
     private TurnDirector _director;
     private Tween _mover;
+
+    public Ease ease = Ease.Linear;
     
     private void Awake() {
         _director = FindObjectOfType<TurnDirector>();
@@ -22,7 +24,7 @@ public class Projectile: MonoBehaviour {
 
         float dist = Vector2.Distance(movedRb.position, setting.target);
         Tween moveTween = movedRb.DOMove(setting.target, dist/moveSpeed*10f);
-        moveTween.SetEase(Ease.Linear);
+        moveTween.SetEase(ease);
         moveTween.OnComplete(() => { Destroy(gameObject); });
         _mover = moveTween;
     }

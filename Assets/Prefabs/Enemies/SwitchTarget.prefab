@@ -213,6 +213,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stunnedTurns: 0
+  immuneToStun: 0
+  immuneToKill: 1
   statusRenderer: {fileID: 9072660728861696000}
   stunExplosionPrefab: {fileID: 4564017752566198956, guid: 5dcc274ae488eb546b8aaee74eb5298d, type: 3}
   stunnedSprite: {fileID: -1709907653, guid: 5cad4fa2cf1a0d648bc031860e47c937, type: 3}
