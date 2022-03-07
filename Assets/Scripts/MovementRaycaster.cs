@@ -18,6 +18,7 @@ public class MovementRaycaster : MonoBehaviour {
     private WallJumper _wallJumper;
     private MeshFilter _moveArcFilter;
     private RoomManager _roomManager;
+    private Transform _clickHelper;
 
     private void Awake() {
         _lineRenderer = transform.Find("LineRenderer").GetComponent<LineRenderer>();
@@ -25,6 +26,7 @@ public class MovementRaycaster : MonoBehaviour {
         _wallJumper = GetComponent<WallJumper>();
         _director = GetComponent<TurnDirector>();
         _roomManager = FindObjectOfType<RoomManager>();
+        _clickHelper = FindObjectOfType<ClickHelper>().transform;
     }
 
     public void PhaseUpdate()
@@ -43,6 +45,7 @@ public class MovementRaycaster : MonoBehaviour {
             else if (IsTargetPointValid()) {
                 _registered = true;
                 _roomManager.SetEnemyIndicatorState(true);
+                _clickHelper.position = targetPoint;
                 return;
             }
         }
@@ -50,6 +53,7 @@ public class MovementRaycaster : MonoBehaviour {
         if (Input.GetMouseButtonDown(0)){
             if (Vector2.Distance(targetPoint, worldMousePos) > _acceptanceClickRange) {
                 _registered = false;
+                _clickHelper.position = new Vector2(1000f, 1000f);
                 return;
             }
 
@@ -83,6 +87,7 @@ public class MovementRaycaster : MonoBehaviour {
             }
             else {
                 targetPoint = Vector2.negativeInfinity;
+                _clickHelper.position = new Vector2(1000f, 1000f);
             }
             
             return;
@@ -92,11 +97,6 @@ public class MovementRaycaster : MonoBehaviour {
             ResetTargetPoint();
             _roomManager.SetEnemyIndicatorState(false);
             return;
-        }
-    
-        
-        if (Input.GetKeyDown(KeyCode.Space) && IsTargetPointValid()) {
-            _director.NextPhase();
         }
     }
     

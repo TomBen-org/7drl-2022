@@ -231,6 +231,7 @@ MonoBehaviour:
   acceptanceClickRange: 0.5
   abilities:
   - {fileID: 11400000, guid: 2905d2868fc3c8d4b94c64ced0758c64, type: 2}
+  - {fileID: 11400000, guid: 8af7264d1f380d34aba5db9fa6fb1bcb, type: 2}
   - {fileID: 11400000, guid: 30ef7aca6d801294da0a5b17a4875cd0, type: 2}
   abilityEnergy: []
   placementIndicatorPrefab: {fileID: 6414938203773532144, guid: 00864ce1e7369074391cfe566eb97d3b, type: 3}

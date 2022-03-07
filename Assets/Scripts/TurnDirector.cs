@@ -26,12 +26,14 @@ public class TurnDirector : MonoBehaviour
     private WallJumper _wallJumper;
     private RoomManager _roomManager;
     private AbilityPlanner _planner;
+    private Transform _clickHelper;
 
     private void Awake() {
         _caster = GetComponent<MovementRaycaster>();
         _wallJumper = GetComponent<WallJumper>();
         _roomManager = FindObjectOfType<RoomManager>();
         _planner = FindObjectOfType<AbilityPlanner>();
+        _clickHelper = FindObjectOfType<ClickHelper>().transform;
     }
 
     private void Start() {
@@ -93,6 +95,7 @@ public class TurnDirector : MonoBehaviour
     }
 
     public void NextPhase() {
+        
         switch (currentPhase) {
             case Phase.Start:
                 currentPhase = Phase.MoveSelect;
@@ -105,6 +108,7 @@ public class TurnDirector : MonoBehaviour
                 currentPhase = Phase.ActionSelect;
                 break;
             case Phase.ActionSelect:
+                _clickHelper.position = new Vector2(1000f, 1000f);
                 currentPhase = Phase.MoveBegin;
                 break;
             case Phase.MoveBegin:
@@ -155,6 +159,7 @@ public class TurnDirector : MonoBehaviour
     public void SetPlayerDeadState(bool state) {
         playerIsDead = state;
         transform.Find("Sprite").GetComponent<SpriteRenderer>().enabled = !state;
+        _clickHelper.position = new Vector2(1000f, 1000f);
         if (state) {
             _roomManager.SetEnemyIndicatorState(false);
         }
