@@ -91,7 +91,7 @@ public class MovementRaycaster : MonoBehaviour {
 
     public Vector2 GetNextPosition() {
         Vector2 nearPoint =  targetPoint - (Vector2) transform.position;
-        nearPoint *= 0.99f;
+        nearPoint *= 0.999999f;
         return nearPoint + (Vector2) transform.position;
     }
     

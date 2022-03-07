@@ -60,7 +60,7 @@ public class TurnDirector : MonoBehaviour
                 }
                 break;
             case Phase.Enemies:
-                _wallJumper.SetFacing();
+                //_wallJumper.SetFacing();
                 NextPhase();
                 break;
             case Phase.End:
