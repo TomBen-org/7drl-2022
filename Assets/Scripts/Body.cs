@@ -27,7 +27,11 @@ public class Body: MonoBehaviour {
                 Transform explosionLocation = transform.Find("ExplosionLocation").transform;
                 Instantiate(deathExplosion, explosionLocation.position, Quaternion.identity);
             } 
-            Destroy(gameObject);    
+            gameObject.SetActive(false); 
         }
+    }
+
+    public virtual void Reset() {
+        stunnedTurns = 0;
     }
 }

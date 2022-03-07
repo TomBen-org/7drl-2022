@@ -14,6 +14,11 @@ public class Enemy : MonoBehaviour {
         _body.UpdateStates();
     }
 
+    public virtual void Reset() {
+        _body.Reset();
+        gameObject.SetActive(true);
+    }
+    
     public virtual void ShootingPhase() {
         
     }

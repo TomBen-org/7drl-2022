@@ -90,6 +90,7 @@ public class MovementRaycaster : MonoBehaviour {
         
         if (Input.GetMouseButtonUp(1)) {
             ResetTargetPoint();
+            _roomManager.SetEnemyIndicatorState(false);
             return;
         }
     

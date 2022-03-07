@@ -20,13 +20,12 @@ public class RoomManager : MonoBehaviour {
         SwapToRoom(0);
     }
 
-    private void SwapToRoom(int index) {
+    public void SwapToRoom(int index) {
         ActivateRoomCamera(index);
         currentRoom = _rooms[index];
         _currentRoomIndex = index;
         _planner.SetAbilities(currentRoom.abilities);
         currentRoom.Init(this);
-        
     }
     
     public void ActivateRoomCamera(int index) {
@@ -67,7 +66,9 @@ public class RoomManager : MonoBehaviour {
 
     public void EnemiesGenerateProjectiles() {
         foreach (var enemy in currentRoom.enemies) {
-            enemy.ShootingPhase();
+            if (enemy.gameObject.activeSelf) {
+                enemy.ShootingPhase();
+            }
         }
     }
 
@@ -76,4 +77,5 @@ public class RoomManager : MonoBehaviour {
             enemy.SetIndicatorState(state);
         }
     }
+
 }

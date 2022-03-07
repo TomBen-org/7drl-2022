@@ -9,4 +9,11 @@ public class EnemySwitch : Enemy {
             triggerTarget.GetComponent<ButtonTarget>().InteractWith(_body.isStunned);
         }
     }
+
+    public override void Reset() {
+        base.Reset();
+        if (triggerTarget) {
+            triggerTarget.GetComponent<ButtonTarget>().InteractWith(_body.isStunned);
+        }
+    }
 }

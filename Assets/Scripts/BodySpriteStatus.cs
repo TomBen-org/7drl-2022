@@ -36,5 +36,9 @@ public class BodySpriteStatus: Body {
             statusRenderer.sprite = _defaultSprite;
         }
     }
-    
+
+    public override void Reset() {
+        base.Reset();
+        UpdateStatus();
+    }
 }

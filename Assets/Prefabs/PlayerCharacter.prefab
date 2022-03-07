@@ -147,6 +147,7 @@ GameObject:
   - component: {fileID: 5309276281402122471}
   - component: {fileID: 3055607287997324553}
   - component: {fileID: 4522737253474796442}
+  - component: {fileID: 3077439182301560023}
   m_Layer: 3
   m_Name: PlayerCharacter
   m_TagString: Untagged
@@ -187,6 +188,7 @@ MonoBehaviour:
   playerFinishedMoving: 0
   currentPhase: 0
   currentTurn: 0
+  playerIsDead: 0
 --- !u!114 &1472169185690639914
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -295,6 +297,22 @@ MonoBehaviour:
   currentFacing: {x: 0, y: 0}
   jumpTime: 1.5
   landingExplosionPrefab: {fileID: 7824881431569940451, guid: 0ad6af0a1e8a5e648ac2b16b7e9a3cd1, type: 3}
+--- !u!114 &3077439182301560023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1472169185690639912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f22bf0055f4c40e3872888706cc93adc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stunnedTurns: 0
+  immuneToStun: 0
+  immuneToKill: 0
+  deathExplosion: {fileID: 0}
 --- !u!1 &4340172504049150338
 GameObject:
   m_ObjectHideFlags: 0
@@ -5119,7 +5137,7 @@ GameObject:
   - component: {fileID: 4539040861520786498}
   - component: {fileID: 847482687265042351}
   m_Layer: 3
-  m_Name: GameObject
+  m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

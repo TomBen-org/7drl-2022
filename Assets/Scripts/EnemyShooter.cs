@@ -33,6 +33,7 @@ public class EnemyShooter : Enemy {
                     _line.SetPositions(new Vector3[] {_gun.position, target});
                     targetPoint = target;
                     validTarget = true;
+                    SetIndicatorState(true);
                     return;
                 }
             }
@@ -57,9 +58,15 @@ public class EnemyShooter : Enemy {
     }
 
     public override void SetIndicatorState(bool state) {
-        if (_body.isStunned) {
+        if (_body.isStunned || validTarget == false) {
             state = false;
         }
         _line.enabled = state;
+    }
+
+    public override void Reset() {
+        base.Reset();
+        validTarget = false;
+        SetIndicatorState(false);
     }
 }

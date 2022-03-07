@@ -20,7 +20,8 @@ public class TurnDirector : MonoBehaviour
     public bool playerFinishedMoving;
     public Phase currentPhase;
     public int currentTurn;
-
+    public bool playerIsDead;
+    
     private MovementRaycaster _caster;
     private WallJumper _wallJumper;
     private RoomManager _roomManager;
@@ -139,10 +140,24 @@ public class TurnDirector : MonoBehaviour
     }
     
     private void EndTurn() {
-        _roomManager.CheckForRoomChange();
+        if (playerIsDead) {
+            _roomManager.currentRoom.ResetRoom();
+            SetPlayerDeadState(false);
+        }
+        else {
+            _roomManager.CheckForRoomChange();
+        }
         _caster.ResetTargetPoint();
         currentTurn++;
         currentPhase = Phase.Start;
-        
     }
+
+    public void SetPlayerDeadState(bool state) {
+        playerIsDead = state;
+        transform.Find("Sprite").GetComponent<SpriteRenderer>().enabled = !state;
+        if (state) {
+            _roomManager.SetEnemyIndicatorState(false);
+        }
+    }
+
 }

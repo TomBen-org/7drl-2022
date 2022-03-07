@@ -25,13 +25,23 @@ public class Room : MonoBehaviour {
     }
 
     public void Init(RoomManager manager) {
-        playerInExitZone = false;
-        _manager = manager;
-        _manager.player.GetComponent<WallJumper>().InstantMove(_spawnPoint.position);
+        if (_initialized == false) {
+            _manager = manager;
+            playerCollider = _manager.player.GetComponent<Collider2D>();
+            enemies = transform.Find("Enemies").GetComponentsInChildren<Enemy>();
+            _endZone.Setup(this);
+            _initialized = true;
+        }
+        ResetRoom();
+    }
+
+    public void ResetRoom() {
+        foreach (Enemy enemy in enemies) {
+            enemy.Reset();
+        }
         AudioManager.Instance.PlayAudio(AudioManager.GameSfx.spawn);
-        playerCollider = _manager.player.GetComponent<Collider2D>();
-        enemies = transform.Find("Enemies").GetComponentsInChildren<Enemy>();
-        _endZone.Setup(this);
+        _manager.player.GetComponent<WallJumper>().InstantMove(_spawnPoint.position);
+        playerInExitZone = false;
     }
     
     public void SetCameraOff() {
