@@ -3,6 +3,7 @@
 public class BodySpriteStatus: Body {
     private Sprite _defaultSprite;
     public SpriteRenderer statusRenderer;
+    public GameObject stunExplosionPrefab;
     
     public Sprite stunnedSprite;
 
@@ -18,6 +19,10 @@ public class BodySpriteStatus: Body {
     public override void Stun(int turns) {
         base.Stun(turns);
         UpdateStatus();
+        if (stunExplosionPrefab != null) {
+            Transform explosionLocation = transform.Find("ExplosionLocation").transform;
+            Instantiate(stunExplosionPrefab, explosionLocation.position, Quaternion.identity);
+        }
     }
 
     private void UpdateStatus() {

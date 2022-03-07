@@ -43,8 +43,8 @@ public class Projectile: MonoBehaviour {
             Body victim = col.transform.GetComponent<Body>();
             if (victim != null) {
                 ApplyEffect(victim);
-                DestroyProjectile();
             }
+            DestroyProjectile();
         }
     }
 
