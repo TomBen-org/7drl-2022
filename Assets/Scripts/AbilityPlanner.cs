@@ -115,6 +115,7 @@ public class AbilityPlanner : MonoBehaviour {
         Destroy(popped.indicator);
         abilityEnergy[popped.abilityIndex] += 1;
         _plannedAbilities.Remove(popped);
+        UpdateButtonSelectability();
     }
 
     private void BeginTargetingPhase() {
@@ -129,8 +130,10 @@ public class AbilityPlanner : MonoBehaviour {
 
     private void BeginPlacementRound() {
         currentPhase = InnerPhase.Placement;
-        _currentPlacementIndicator = Instantiate(placementIndicatorPrefab);
-        _currentPlacementIndicator.transform.position = _caster.GetClosestPointOnMoveLine();
+        if (!_currentPlacementIndicator) {
+            _currentPlacementIndicator = Instantiate(placementIndicatorPrefab);
+            //_currentPlacementIndicator.transform.position = _caster.GetClosestPointOnMoveLine();    
+        }
     }
 
     private void PlaceIndicatorOnLine() {
