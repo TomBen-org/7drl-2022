@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class Body: MonoBehaviour {
     public bool isStunned => stunnedTurns > 0;
@@ -17,7 +18,8 @@ public class Body: MonoBehaviour {
     
     public virtual void Stun(int turns) {
         if (!immuneToStun) {
-            stunnedTurns += turns;    
+            stunnedTurns += turns;
+            stunnedTurns = Math.Min(stunnedTurns, 2);
         }
     }
 
