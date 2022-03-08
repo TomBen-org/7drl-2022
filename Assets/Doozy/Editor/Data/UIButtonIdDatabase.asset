@@ -24,3 +24,11 @@ MonoBehaviour:
       Name: EndTurn
     - Category: None
       Name: None
+    - Category: PauseMenu
+      Name: About
+    - Category: PauseMenu
+      Name: Quit
+    - Category: PauseMenu
+      Name: RestartRoom
+    - Category: PauseMenu
+      Name: Resume

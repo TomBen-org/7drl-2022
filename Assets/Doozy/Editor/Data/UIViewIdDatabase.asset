@@ -17,8 +17,10 @@ MonoBehaviour:
     - Category: Game
       Name: ActionBar
     - Category: Game
-      Name: PlayerStatus
-    - Category: MainMenu
       Name: Landing
+    - Category: Game
+      Name: PauseMenu
+    - Category: Game
+      Name: PlayerStatus
     - Category: None
       Name: None

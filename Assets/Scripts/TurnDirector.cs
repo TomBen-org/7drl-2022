@@ -2,11 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using Doozy.Runtime.UIManager;
+using Doozy.Runtime.UIManager.Containers;
 using UnityEngine;
 
 public class TurnDirector : MonoBehaviour
 {
     public enum Phase {
+        Landing,
         Start,
         MoveSelect,
         ActionSelect,
@@ -39,9 +42,59 @@ public class TurnDirector : MonoBehaviour
     private void Start() {
         DOTween.Init();
         _roomManager.Setup();
+        currentPhase = Phase.Landing;
+    }
+
+    private void Update() {
+        if (currentPhase == Phase.Landing) {
+            if (Input.GetMouseButtonUp(0)) {
+                UIView.Hide("Game","Landing");
+                NextPhase();
+            }
+        } else if(PauseMenuIsVisible()) {
+            if (Input.GetKeyUp(KeyCode.Escape)) {
+                UIView.Hide("Game", "PauseMenu");
+            }
+        } else {
+            PhaseUpdate();
+        }
+    }
+
+    private bool PauseMenuIsVisible() {
+        foreach (UIView view in UIView.GetViews("Game","PauseMenu")) {
+            if (view.visibilityState != VisibilityState.Hidden) {
+                return true;    
+            }
+        }
+
+        return false;
+    }
+
+    private bool PauseMenuIsHidden() {
+        foreach (UIView view in UIView.GetViews("Game","PauseMenu")) {
+            if (view.visibilityState != VisibilityState.Visible) {
+                return true;    
+            }
+        }
+
+        return false;
+    }
+
+    //only triggered from the Pause menu UI.
+    public void PauseMenuResetRoom() {
+        SetPlayerDeadState(true);
+        currentPhase = Phase.End;
+        UIView.Hide("Game","PauseMenu");
+        
     }
     
-    private void Update() {
+    //only triggered from the Pause menu UI.
+    public void CloseMenu() {
+        UIView.Hide("Game","PauseMenu");
+    }
+
+
+    private void PhaseUpdate() {
         switch (currentPhase) {
             case Phase.Start:
                 playerFinishedMoving = false;
@@ -50,12 +103,18 @@ public class TurnDirector : MonoBehaviour
                 NextPhase();
                 break;
             case Phase.MoveSelect:
+                if (PauseMenuIsHidden() && Input.GetKeyUp(KeyCode.Escape)) {
+                    UIView.Show("Game","PauseMenu");   
+                }
                 _caster.PhaseUpdate();
                 break;
             case Phase.ActionSelect:
                 if (_planner.abilities.Count == 0) {
                     NextPhase();
                     return;
+                }
+                if (PauseMenuIsHidden() && Input.GetKeyUp(KeyCode.Escape)) {
+                    UIView.Show("Game","PauseMenu");   
                 }
                 _planner.PhaseUpdate();
                 break;
@@ -97,6 +156,9 @@ public class TurnDirector : MonoBehaviour
     public void NextPhase() {
         
         switch (currentPhase) {
+            case Phase.Landing:
+                currentPhase = Phase.Start;
+                break;
             case Phase.Start:
                 currentPhase = Phase.MoveSelect;
                 _caster.SetMoveArcState(true);

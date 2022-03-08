@@ -13,4 +13,12 @@ MonoBehaviour:
   m_Name: StreamIdDatabase
   m_EditorClassIdentifier: 
   Database:
-    Items: []
+    Items:
+    - Category: GameStreams
+      Name: LandingClick
+    - Category: GameStreams
+      Name: Pause
+    - Category: GameStreams
+      Name: RestartRoom
+    - Category: None
+      Name: None

@@ -7,7 +7,6 @@ public class WallJumper: WallPosition {
     public float jumpTime = 1.5f;
     public GameObject landingExplosionPrefab;
     private Tween _mover;
-    private UnityEvent _moveCompleteEvent;
     private TurnDirector _director;
     private ParticleSystem _particles;
     private SpriteRenderer _spriteRenderer;
@@ -18,16 +17,9 @@ public class WallJumper: WallPosition {
         _director = GetComponent<TurnDirector>();
         _particles = GetComponentInChildren<ParticleSystem>();
         _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-    }
-    
-    public override void Start() {
-        if (_moveCompleteEvent == null) {
-            _moveCompleteEvent = new UnityEvent();
-        }
-        _moveCompleteEvent.AddListener(delegate { _director.NextPhase(); });
         _particles.Stop();
     }
-
+    
     public void Update() {
         if (_director.currentPhase == TurnDirector.Phase.Moving) {
             
