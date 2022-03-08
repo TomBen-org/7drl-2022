@@ -18,6 +18,7 @@ public class Body: MonoBehaviour {
     
     public virtual void Stun(int turns) {
         if (!immuneToStun) {
+            AudioManager.Instance.PlayAudio(AudioManager.GameSfx.stunHit);
             stunnedTurns += turns;
             stunnedTurns = Math.Min(stunnedTurns, 2);
         }

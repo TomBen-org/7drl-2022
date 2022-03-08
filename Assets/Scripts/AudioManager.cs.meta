@@ -12,6 +12,7 @@ MonoImporter:
   - jumpInitClip: {fileID: 8300000, guid: 02bac10ad3d12934c906145bea873b29, type: 3}
   - jumpLandingClip: {fileID: 8300000, guid: 534da7a9737f328408902dc96880251f, type: 3}
   - doorOpenClip: {fileID: 8300000, guid: 45a9e8dfcd2f6f74ba8cedb287b87115, type: 3}
+  - doorCloseClip: {fileID: 8300000, guid: 45a9e8dfcd2f6f74ba8cedb287b87115, type: 3}
   - stunShootClip: {fileID: 8300000, guid: cecffa66e477b414bba09359da5973c4, type: 3}
   - stunHitClip: {fileID: 8300000, guid: efc7d81806036f544942e2b4239c1de4, type: 3}
   - canonShootClip: {fileID: 8300000, guid: 26f63f7e4c9fdd64bbd763b70aab0911, type: 3}

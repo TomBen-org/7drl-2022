@@ -157,6 +157,7 @@ public class TurnDirector : MonoBehaviour
     }
 
     public void SetPlayerDeadState(bool state) {
+        AudioManager.Instance.PlayAudio(AudioManager.GameSfx.die);
         playerIsDead = state;
         transform.Find("Sprite").GetComponent<SpriteRenderer>().enabled = !state;
         _clickHelper.position = new Vector2(1000f, 1000f);

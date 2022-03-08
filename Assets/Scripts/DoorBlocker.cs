@@ -14,8 +14,16 @@ public class DoorBlocker : ButtonTarget {
     }
 
     public override void InteractWith(bool newState) {
+        if (newState && !state)
+        {
+            AudioManager.Instance.PlayAudio(AudioManager.GameSfx.doorOpen);
+        } else if (!newState && state)
+        {
+            AudioManager.Instance.PlayAudio(AudioManager.GameSfx.doorClose);
+        }
         base.InteractWith(newState);
         _spriteRenderer.sprite = state? triggeredSprite: _defaultSprite;
         _collider.enabled = !state;
+
     }
 }

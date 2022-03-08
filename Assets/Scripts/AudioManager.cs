@@ -1,10 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-	private const int N_AUDIO_SOURCES = 4;
+	private const int MIN_AUDIO_SOURCES = 3;
+
+	private const bool LOG_ACTIVE = false;
 
 	public enum MusicType
 	{
@@ -19,10 +20,9 @@ public class AudioManager : MonoBehaviour
 
 	public enum GameSfx
 	{
-		spawn, die, jumpInit, jumpLanding, doorOpen, stunShoot, stunHit, canonShoot, canonHit
+		spawn, die, jumpInit, jumpLanding, doorOpen, doorClose, stunShoot, stunHit, canonShoot, canonHit
 	}
-	private const int GAME_INDEX1 = 2;
-	private const int GAME_INDEX2 = 3;
+	private const int GAME_INDEX_START = 2;
 
 	public static AudioManager Instance;
 
@@ -44,6 +44,8 @@ public class AudioManager : MonoBehaviour
 	[SerializeField]
 	private AudioClip doorOpenClip;
 	[SerializeField]
+	private AudioClip doorCloseClip;
+	[SerializeField]
 	private AudioClip stunShootClip;
 	[SerializeField]
 	private AudioClip stunHitClip;
@@ -57,8 +59,9 @@ public class AudioManager : MonoBehaviour
 	[SerializeField]
 	private AudioClip menuMusicClip;
 
-
-	private AudioSource[] audioSources = new AudioSource[N_AUDIO_SOURCES];
+	private AudioSource interactionAudioSource;
+	private AudioSource musicAudioSource;
+	private AudioSource[] gameAudioSources;
 
 	void Awake()
 	{
@@ -78,31 +81,38 @@ public class AudioManager : MonoBehaviour
 
 	private void Init()
     {
-		audioSources = GetComponents<AudioSource>();
-        if (audioSources.Length < 4)
+		AudioSource[] audioSources = GetComponents<AudioSource>();
+        if (audioSources.Length < MIN_AUDIO_SOURCES)
         {
-			Debug.LogWarning($"AudioManager expects 4 AudioSource Components, but only {audioSources.Length} were provided.");
+			Debug.LogWarning($"AudioManager expects at least {MIN_AUDIO_SOURCES} AudioSource Components, but only {audioSources.Length} were provided.");
         }
+        else
+        {
+			gameAudioSources = new AudioSource[audioSources.Length - GAME_INDEX_START];
+			Array.Copy(audioSources, GAME_INDEX_START, gameAudioSources, 0, audioSources.Length - GAME_INDEX_START);
+        }
+		interactionAudioSource = audioSources[0];
+		musicAudioSource = audioSources[1];
 	}
 
 	public void PlayAudio(InteractionSfx interactionSound, bool looped = false)
     {
-
-        switch (interactionSound)
+		Log($"Playing audio: {interactionSound}");
+		switch (interactionSound)
         {
 			case InteractionSfx.interact:
                 {
-					PlayClipAt(interactClip, looped, audioSources[INTERACT_INDEX]);
+					PlayClipAt(interactClip, looped, interactionAudioSource);
 					return;
 				}
 			case InteractionSfx.positiveInteract:
 				{
-					PlayClipAt(positiveInteractClip, looped, audioSources[INTERACT_INDEX]);
+					PlayClipAt(positiveInteractClip, looped, interactionAudioSource);
 					return;
 				}
 			case InteractionSfx.negativeInteract:
 				{
-					PlayClipAt(negativeInteractClip, looped, audioSources[INTERACT_INDEX]);
+					PlayClipAt(negativeInteractClip, looped, interactionAudioSource);
 					return; 
 				}
 		}
@@ -110,89 +120,133 @@ public class AudioManager : MonoBehaviour
 
 	public void PlayAudio(GameSfx gameSound, bool looped = false)
 	{
+		Log($"Playing audio: {gameSound}");
 		switch (gameSound)
 		{
 			case GameSfx.spawn:
 				{
-					PlayClipAt(spawnClip, looped, audioSources[GAME_INDEX1], audioSources[GAME_INDEX2]);
+					PlayClipAt(spawnClip, looped, gameAudioSources);
 					return;
 				}
 			case GameSfx.die:
 				{
-					PlayClipAt(dieClip, looped, audioSources[GAME_INDEX1], audioSources[GAME_INDEX2]);
+					PlayClipAt(dieClip, looped, gameAudioSources);
 					return;
-
 				}
 			case GameSfx.jumpInit:
 				{
-					PlayClipAt(jumpInitClip, looped, audioSources[GAME_INDEX1], audioSources[GAME_INDEX2]);
+					PlayClipAt(jumpInitClip, looped, gameAudioSources);
 					return;
 				}
 			case GameSfx.jumpLanding:
 				{
-					PlayClipAt(jumpLandingClip, looped, audioSources[GAME_INDEX1], audioSources[GAME_INDEX2]);
+					PlayClipAt(jumpLandingClip, looped, gameAudioSources);
 					return;
 				}
 			case GameSfx.doorOpen:
 				{
-					PlayClipAt(doorOpenClip, looped, audioSources[GAME_INDEX1], audioSources[GAME_INDEX2]);
+					PlayClipAt(doorOpenClip, looped, gameAudioSources);
+					return;
+				}
+			case GameSfx.doorClose:
+				{
+					PlayClipAt(doorCloseClip, looped, gameAudioSources);
 					return;
 				}
 			case GameSfx.stunShoot:
 				{
-					PlayClipAt(stunShootClip, looped, audioSources[GAME_INDEX1], audioSources[GAME_INDEX2]);
+					PlayClipAt(stunShootClip, looped, gameAudioSources);
 					return;
 				}
 			case GameSfx.stunHit:
 				{
-					PlayClipAt(stunHitClip, looped, audioSources[GAME_INDEX1], audioSources[GAME_INDEX2]);
+					PlayClipAt(stunHitClip, looped, gameAudioSources);
 					return;
 				}
 			case GameSfx.canonShoot:
 				{
-					PlayClipAt(canonShootClip, looped, audioSources[GAME_INDEX1], audioSources[GAME_INDEX2]);
+					PlayClipAt(canonShootClip, looped, gameAudioSources);
 					return;
 				}
 			case GameSfx.canonHit:
 				{
-					PlayClipAt(canonHitClip, looped, audioSources[GAME_INDEX1], audioSources[GAME_INDEX2]);
+					PlayClipAt(canonHitClip, looped, gameAudioSources);
 					return;
 				}
 		}
 	}
 
-
 	public void PlayAudio(MusicType music, bool looped = true)
 	{
+		Log($"Playing music audio: {music}");
+
 		Debug.LogWarning("no music exists yet");
 		switch (music)
 		{
 			case MusicType.gameplay:
 				{
-					PlayClipAt(gameplayMusicClip, looped, audioSources[MUSIC_INDEX]);
+					PlayClipAt(gameplayMusicClip, looped, musicAudioSource);
 					return;
 				}
 			case MusicType.menu:
 				{
-					PlayClipAt(menuMusicClip, looped, audioSources[MUSIC_INDEX]);
+					PlayClipAt(menuMusicClip, looped, musicAudioSource);
 					break;
 				}
 		}
 	}
 
-	private void PlayClipAt(AudioClip clip, bool looped, AudioSource source, AudioSource altSource = null)
+	private void PlayClipAt(AudioClip clip, bool looped, AudioSource[] sources)
     {
-		if(altSource is not null && source.isPlaying && !altSource.isPlaying)
-        {
-			PlayClipAt(clip, looped, altSource, null);
-        }
+		PlayClipAt(clip, looped, GetMostProgressedSource(sources));
+    }
+	private AudioSource GetMostProgressedSource(AudioSource[] sources)
+	{
+		if (sources.Length < 1)
+		{
+			Debug.LogWarning("Passed an array with less than 1 audio source");
+			return null;
+		}
+		int maxIndex = 0;
+		float maxTime = -1;
+		for (int i = 0; i < sources.Length; i++)
+		{
+			if (!sources[i].isPlaying)
+			{
+				return sources[i];
+			}
+			if (sources[i].time > maxTime)
+			{
+				maxTime = sources[i].time;
+				maxIndex = i;
+			}
+		}
+		return sources[maxIndex];
+	}
+
+	private void PlayClipAt(AudioClip clip, bool looped, AudioSource source)
+	{
 		source.clip = clip;
 		source.loop = looped;
 		source.Play();
-    }
+	}
 
 	void OnDestroy()
 	{
 		Instance = null;
 	}
+
+	/// <summary>
+	/// Logs depending on LOG_ACTIVE
+	/// </summary>
+	/// <param name="output"></param>
+	private void Log(string output)
+    {
+        if (LOG_ACTIVE)
+        {
+#pragma warning disable CS0162 //ignore unreachable code warning
+            Debug.Log(output);
+#pragma warning restore CS0162 
+        }
+    }
 }

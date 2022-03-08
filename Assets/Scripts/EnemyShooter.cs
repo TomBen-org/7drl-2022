@@ -54,6 +54,7 @@ public class EnemyShooter : Enemy {
     
     public void Fire() {
         GameObject bullet = Instantiate(projectilePrefab, _gun.position, Quaternion.identity);
+        AudioManager.Instance.PlayAudio(AudioManager.GameSfx.canonShoot);
         bullet.GetComponent<Projectile>().Setup(targetPoint);
     }
 
