@@ -4,20 +4,25 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
+	private const int N_AUDIO_SOURCES = 4;
 
-	public enum InteractionSfx
-    {
-		interact, negativeInteract, positiveInteract
-    }
-
-	public enum GameSfx
-	{
-		spawn, die, jumpInit, jumpLanding
-	}
 	public enum MusicType
 	{
 		gameplay, menu
 	}
+	private const int MUSIC_INDEX = 0;
+	public enum InteractionSfx
+    {
+		interact, negativeInteract, positiveInteract
+    }
+	private const int INTERACT_INDEX = 1;
+
+	public enum GameSfx
+	{
+		spawn, die, jumpInit, jumpLanding, doorOpen, stunShoot, stunHit, canonShoot, canonHit
+	}
+	private const int GAME_INDEX1 = 2;
+	private const int GAME_INDEX2 = 3;
 
 	public static AudioManager Instance;
 
@@ -36,12 +41,24 @@ public class AudioManager : MonoBehaviour
 	private AudioClip jumpInitClip;
 	[SerializeField]
 	private AudioClip jumpLandingClip;
+	[SerializeField]
+	private AudioClip doorOpenClip;
+	[SerializeField]
+	private AudioClip stunShootClip;
+	[SerializeField]
+	private AudioClip stunHitClip;
+	[SerializeField]
+	private AudioClip canonShootClip;
+	[SerializeField]
+	private AudioClip canonHitClip;
+
+	[SerializeField]
+	private AudioClip gameplayMusicClip;
+	[SerializeField]
+	private AudioClip menuMusicClip;
 
 
-	private AudioSource interactionAudioSource;
-	private AudioSource gameAudioSource;
-	private AudioSource musicAudioSource;
-
+	private AudioSource[] audioSources = new AudioSource[N_AUDIO_SOURCES];
 
 	void Awake()
 	{
@@ -61,39 +78,34 @@ public class AudioManager : MonoBehaviour
 
 	private void Init()
     {
-		AudioSource[] audioSources = GetComponents<AudioSource>();
-        if (audioSources.Length < 3)
+		audioSources = GetComponents<AudioSource>();
+        if (audioSources.Length < 4)
         {
-			Debug.LogWarning($"AudioManager expects 3 AudioSource Components, but only {audioSources.Length} were provided.");
+			Debug.LogWarning($"AudioManager expects 4 AudioSource Components, but only {audioSources.Length} were provided.");
         }
-
-		this.interactionAudioSource = audioSources[0];
-		this.gameAudioSource = audioSources[1];
-		this.musicAudioSource = audioSources[2];
 	}
 
 	public void PlayAudio(InteractionSfx interactionSound, bool looped = false)
     {
+
         switch (interactionSound)
         {
 			case InteractionSfx.interact:
                 {
-					interactionAudioSource.clip = interactClip;
-					break;
+					PlayClipAt(interactClip, looped, audioSources[INTERACT_INDEX]);
+					return;
 				}
 			case InteractionSfx.positiveInteract:
 				{
-					interactionAudioSource.clip = positiveInteractClip;
-					break;
+					PlayClipAt(positiveInteractClip, looped, audioSources[INTERACT_INDEX]);
+					return;
 				}
 			case InteractionSfx.negativeInteract:
 				{
-					interactionAudioSource.clip = negativeInteractClip;
-					break;
+					PlayClipAt(negativeInteractClip, looped, audioSources[INTERACT_INDEX]);
+					return; 
 				}
 		}
-		interactionAudioSource.loop = looped;
-		interactionAudioSource.Play();
     }
 
 	public void PlayAudio(GameSfx gameSound, bool looped = false)
@@ -102,27 +114,51 @@ public class AudioManager : MonoBehaviour
 		{
 			case GameSfx.spawn:
 				{
-					gameAudioSource.clip = spawnClip;
-					break;
+					PlayClipAt(spawnClip, looped, audioSources[GAME_INDEX1], audioSources[GAME_INDEX2]);
+					return;
 				}
 			case GameSfx.die:
 				{
-					gameAudioSource.clip = dieClip;
-					break;
+					PlayClipAt(dieClip, looped, audioSources[GAME_INDEX1], audioSources[GAME_INDEX2]);
+					return;
+
 				}
 			case GameSfx.jumpInit:
 				{
-					gameAudioSource.clip = jumpInitClip;
-					break;
+					PlayClipAt(jumpInitClip, looped, audioSources[GAME_INDEX1], audioSources[GAME_INDEX2]);
+					return;
 				}
 			case GameSfx.jumpLanding:
 				{
-					gameAudioSource.clip = jumpLandingClip;
-					break;
+					PlayClipAt(jumpLandingClip, looped, audioSources[GAME_INDEX1], audioSources[GAME_INDEX2]);
+					return;
+				}
+			case GameSfx.doorOpen:
+				{
+					PlayClipAt(doorOpenClip, looped, audioSources[GAME_INDEX1], audioSources[GAME_INDEX2]);
+					return;
+				}
+			case GameSfx.stunShoot:
+				{
+					PlayClipAt(stunShootClip, looped, audioSources[GAME_INDEX1], audioSources[GAME_INDEX2]);
+					return;
+				}
+			case GameSfx.stunHit:
+				{
+					PlayClipAt(stunHitClip, looped, audioSources[GAME_INDEX1], audioSources[GAME_INDEX2]);
+					return;
+				}
+			case GameSfx.canonShoot:
+				{
+					PlayClipAt(canonShootClip, looped, audioSources[GAME_INDEX1], audioSources[GAME_INDEX2]);
+					return;
+				}
+			case GameSfx.canonHit:
+				{
+					PlayClipAt(canonHitClip, looped, audioSources[GAME_INDEX1], audioSources[GAME_INDEX2]);
+					return;
 				}
 		}
-		gameAudioSource.loop = looped;
-		gameAudioSource.Play();
 	}
 
 
@@ -131,21 +167,29 @@ public class AudioManager : MonoBehaviour
 		Debug.LogWarning("no music exists yet");
 		switch (music)
 		{
-			case MusicType.menu:
-				{
-					//musicAudioSource.clip = menuMusicClip;
-					break;
-				}
 			case MusicType.gameplay:
 				{
-					//musicAudioSource.clip = gameplayMusicClip;
+					PlayClipAt(gameplayMusicClip, looped, audioSources[MUSIC_INDEX]);
+					return;
+				}
+			case MusicType.menu:
+				{
+					PlayClipAt(menuMusicClip, looped, audioSources[MUSIC_INDEX]);
 					break;
 				}
 		}
-		musicAudioSource.loop = looped;
-		musicAudioSource.Play();
 	}
 
+	private void PlayClipAt(AudioClip clip, bool looped, AudioSource source, AudioSource altSource = null)
+    {
+		if(altSource is not null && source.isPlaying && !altSource.isPlaying)
+        {
+			PlayClipAt(clip, looped, altSource, null);
+        }
+		source.clip = clip;
+		source.loop = looped;
+		source.Play();
+    }
 
 	void OnDestroy()
 	{
