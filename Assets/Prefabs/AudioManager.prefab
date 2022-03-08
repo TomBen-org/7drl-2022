@@ -58,7 +58,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.209
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -154,7 +154,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.666
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -551,5 +551,5 @@ MonoBehaviour:
   stunHitClip: {fileID: 8300000, guid: efc7d81806036f544942e2b4239c1de4, type: 3}
   canonShootClip: {fileID: 8300000, guid: 26f63f7e4c9fdd64bbd763b70aab0911, type: 3}
   canonHitClip: {fileID: 8300000, guid: 6333ca090583c1142b804f9c6e25e1ad, type: 3}
-  gameplayMusicClip: {fileID: 0}
+  gameplayMusicClip: {fileID: 8300000, guid: 37cc79e1169bea34d94c736be18b6dfa, type: 3}
   menuMusicClip: {fileID: 0}

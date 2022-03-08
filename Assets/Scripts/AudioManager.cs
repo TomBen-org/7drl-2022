@@ -179,8 +179,6 @@ public class AudioManager : MonoBehaviour
 	public void PlayAudio(MusicType music, bool looped = true)
 	{
 		Log($"Playing music audio: {music}");
-
-		Debug.LogWarning("no music exists yet");
 		switch (music)
 		{
 			case MusicType.gameplay:
