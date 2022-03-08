@@ -92,6 +92,11 @@ public class TurnDirector : MonoBehaviour
     public void CloseMenu() {
         UIView.Hide("Game","PauseMenu");
     }
+    
+    //only triggered from the Pause menu UI.
+    public void QuitGame() {
+        Application.Quit();
+    }
 
 
     private void PhaseUpdate() {

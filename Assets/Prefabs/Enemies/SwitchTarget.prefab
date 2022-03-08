@@ -215,6 +215,7 @@ MonoBehaviour:
   stunnedTurns: 0
   immuneToStun: 0
   immuneToKill: 1
+  deathExplosion: {fileID: 0}
   statusRenderer: {fileID: 9072660728861696000}
   stunExplosionPrefab: {fileID: 4564017752566198956, guid: 5dcc274ae488eb546b8aaee74eb5298d, type: 3}
   stunnedSprite: {fileID: -1709907653, guid: 5cad4fa2cf1a0d648bc031860e47c937, type: 3}
@@ -231,7 +232,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.25}
+  m_Offset: {x: 0, y: 0.34}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -242,5 +243,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.6, y: 0.7}
   m_EdgeRadius: 0
