@@ -164,7 +164,7 @@ public class MovementRaycaster : MonoBehaviour {
 
         float dist = Vector2.Dot(a_to_p, a_to_b) / a_to_b.sqrMagnitude;
 
-        dist = Math.Clamp(dist, 0.1f, 0.9f);
+        dist = Math.Clamp(dist, 0.001f, 0.999f);
         Vector2 closest = mStart+a_to_b*dist;
         return closest;
     }
