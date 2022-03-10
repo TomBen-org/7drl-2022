@@ -1,4 +1,6 @@
 ﻿using DG.Tweening;
+using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Projectile: MonoBehaviour {
@@ -47,9 +49,10 @@ public class Projectile: MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D col) {
         int wallMask = LayerMask.NameToLayer("MoveTarget");
+        int doorMask = LayerMask.NameToLayer("Door");
         int targetMask = LayerMask.NameToLayer(targetLayerName);
         
-        if (col.gameObject.layer == wallMask) {
+        if (col.gameObject.layer == wallMask || col.gameObject.layer == doorMask) {
             DestroyProjectile();
         } else if (col.gameObject.layer == targetMask) {
             Body victim = col.transform.GetComponent<Body>();

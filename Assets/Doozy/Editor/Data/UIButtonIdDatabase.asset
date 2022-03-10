@@ -22,10 +22,16 @@ MonoBehaviour:
       Name: Ability3
     - Category: Game
       Name: EndTurn
+    - Category: Landing
+      Name: Begin
+    - Category: Links
+      Name: Abregado
+    - Category: Links
+      Name: Substain
+    - Category: Links
+      Name: Wheybags
     - Category: None
       Name: None
-    - Category: PauseMenu
-      Name: About
     - Category: PauseMenu
       Name: Quit
     - Category: PauseMenu

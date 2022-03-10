@@ -68,7 +68,7 @@ public class MovementRaycaster : MonoBehaviour {
             //shoot a ray at the mouse
             Vector2 targetDirection = worldMousePos - transform.position;
 
-            int mask = LayerMask.GetMask("MoveTarget","Enemy");
+            int mask = LayerMask.GetMask("MoveTarget","Enemy", "Door");
             int wallMask = LayerMask.NameToLayer("MoveTarget");
 
             RaycastHit2D hit = Physics2D.Raycast(transform.position, targetDirection, 5000f, mask);

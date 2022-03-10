@@ -47,10 +47,7 @@ public class TurnDirector : MonoBehaviour
 
     private void Update() {
         if (currentPhase == Phase.Landing) {
-            if (Input.GetMouseButtonUp(0)) {
-                UIView.Hide("Game","Landing");
-                NextPhase();
-            }
+            //Do nothing! Wait until the player presses the button.
         } else if(PauseMenuIsVisible()) {
             if (Input.GetKeyUp(KeyCode.Escape)) {
                 UIView.Hide("Game", "PauseMenu");
@@ -98,6 +95,11 @@ public class TurnDirector : MonoBehaviour
         Application.Quit();
     }
 
+    //only triggered from the Pause menu UI.
+    public void LandingClick() {
+        UIView.Hide("Game","Landing");
+        NextPhase();
+    }
 
     private void PhaseUpdate() {
         switch (currentPhase) {

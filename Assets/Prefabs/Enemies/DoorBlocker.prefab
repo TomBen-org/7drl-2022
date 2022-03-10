@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3700618328711548479}
   - component: {fileID: 3161506960303228124}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,7 +71,7 @@ GameObject:
   - component: {fileID: 6254395001311872765}
   - component: {fileID: 862120543141007442}
   - component: {fileID: -1650912714453823502}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: DoorBlocker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -218,7 +218,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1560887257930668187}
   - component: {fileID: 2608453301874671265}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: GameObject (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

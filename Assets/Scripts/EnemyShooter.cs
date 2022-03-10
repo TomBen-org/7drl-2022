@@ -23,7 +23,7 @@ public class EnemyShooter : Enemy {
             _line.SetPositions(new Vector3[] {_gun.position, _gun.position});
 
             Vector2 targetDirection = target - (Vector2) _gun.position;
-            int mask = LayerMask.GetMask("Player", "MoveTarget");
+            int mask = LayerMask.GetMask("Player", "MoveTarget", "Door");
             int wallMask = LayerMask.NameToLayer("MoveTarget");
 
             RaycastHit2D hit = Physics2D.Raycast(_gun.position, targetDirection, 5000f, mask);
