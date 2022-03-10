@@ -43,6 +43,7 @@ public class TurnDirector : MonoBehaviour
         DOTween.Init();
         _roomManager.Setup();
         currentPhase = Phase.Landing;
+        AudioManager.Instance.PlayAudio(AudioManager.MusicType.menu);
     }
 
     private void Update() {
@@ -98,6 +99,7 @@ public class TurnDirector : MonoBehaviour
     //only triggered from the Pause menu UI.
     public void LandingClick() {
         UIView.Hide("Game","Landing");
+        AudioManager.Instance.PlayAudio(AudioManager.MusicType.gameplay);
         NextPhase();
     }
 

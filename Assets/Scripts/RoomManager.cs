@@ -18,7 +18,6 @@ public class RoomManager : MonoBehaviour {
 
     public void Setup() {
         SwapToRoom(0);
-        AudioManager.Instance.PlayAudio(AudioManager.MusicType.gameplay);
     }
 
     public void SwapToRoom(int index) {
