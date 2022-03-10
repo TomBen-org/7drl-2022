@@ -143,7 +143,6 @@ public class TurnDirector : MonoBehaviour
                 }
                 break;
             case Phase.End:
-                _roomManager.EndPhaseUpdate();
                 EndTurn();
                 break;
             default:
@@ -213,12 +212,17 @@ public class TurnDirector : MonoBehaviour
     }
     
     private void EndTurn() {
+        
+        
         if (playerIsDead) {
             _roomManager.currentRoom.ResetRoom();
             SetPlayerDeadState(false);
         }
         else {
-            _roomManager.CheckForRoomChange();
+            bool nextLevel = _roomManager.CheckForRoomChange();
+            if (!nextLevel) {
+                _roomManager.EndPhaseUpdate();    
+            }
         }
         _caster.ResetTargetPoint();
         currentTurn++;
@@ -229,6 +233,7 @@ public class TurnDirector : MonoBehaviour
         AudioManager.Instance.PlayAudio(AudioManager.GameSfx.die);
         playerIsDead = state;
         transform.Find("Sprite").GetComponent<SpriteRenderer>().enabled = !state;
+        _planner.SetAbilities(_roomManager.currentRoom.abilities);
         _clickHelper.position = new Vector2(1000f, 1000f);
         if (state) {
             _roomManager.SetEnemyIndicatorState(false);

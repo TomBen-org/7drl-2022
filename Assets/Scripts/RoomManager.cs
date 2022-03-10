@@ -37,14 +37,17 @@ public class RoomManager : MonoBehaviour {
         _rooms[index].SetCameraOn();
     }
 
-    public void CheckForRoomChange() {
+    public bool CheckForRoomChange() {
         if (currentRoom.playerInExitZone) {
             int nextRoom = _currentRoomIndex + 1;
             if (nextRoom >= _rooms.Length) {
                 nextRoom = 0;
             }
             SwapToRoom(nextRoom);
+            return true;
         }
+
+        return false;
     }
     
     public void StartPhaseUpdate() {
@@ -55,7 +58,9 @@ public class RoomManager : MonoBehaviour {
 
     public void EndPhaseUpdate() {
         foreach (var enemy in currentRoom.enemies) {
-            enemy.EndUpdate();
+            if (enemy.gameObject.activeSelf) {
+                enemy.EndUpdate();    
+            }
         }
     }
 
