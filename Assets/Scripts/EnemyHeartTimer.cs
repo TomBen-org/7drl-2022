@@ -23,6 +23,10 @@ public class EnemyHeartTimer : Enemy {
     }
 
     public override void EndUpdate() {
+        if (_turnsRemaining > 0) {
+            _turnsRemaining--;
+            _text.text = _turnsRemaining.ToString(); 
+        }
         if (_turnsRemaining == 0) {
             if (explosionPrefab != null) {
                 Transform explosionLocation = transform.Find("ExplosionLocation").transform;
@@ -31,10 +35,6 @@ public class EnemyHeartTimer : Enemy {
 
             FindObjectOfType<PlayerBody>().Kill();
             _body.Kill();
-        }
-        else {
-            _turnsRemaining--;
-            _text.text = _turnsRemaining.ToString();    
         }
     }
 }
