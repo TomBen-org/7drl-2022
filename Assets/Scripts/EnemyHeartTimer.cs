@@ -28,7 +28,8 @@ public class EnemyHeartTimer : Enemy {
                 Transform explosionLocation = transform.Find("ExplosionLocation").transform;
                 Instantiate(explosionPrefab, explosionLocation.position, Quaternion.identity);
             }
-            FindObjectOfType<TurnDirector>().SetPlayerDeadState(true);
+
+            FindObjectOfType<PlayerBody>().Kill();
             _body.Kill();
         }
         else {

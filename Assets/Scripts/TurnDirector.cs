@@ -214,17 +214,15 @@ public class TurnDirector : MonoBehaviour
     }
     
     private void EndTurn() {
-        
+        bool nextLevel = _roomManager.CheckForRoomChange();
+        if (!nextLevel) {
+            _roomManager.EndPhaseUpdate();    
+        }
         
         if (playerIsDead) {
-            _roomManager.currentRoom.ResetRoom();
             SetPlayerDeadState(false);
-        }
-        else {
-            bool nextLevel = _roomManager.CheckForRoomChange();
-            if (!nextLevel) {
-                _roomManager.EndPhaseUpdate();    
-            }
+            _roomManager.currentRoom.ResetRoom();
+            _planner.SetAbilities(_roomManager.currentRoom.abilities);
         }
         _caster.ResetTargetPoint();
         currentTurn++;
@@ -232,14 +230,14 @@ public class TurnDirector : MonoBehaviour
     }
 
     public void SetPlayerDeadState(bool state) {
-        AudioManager.Instance.PlayAudio(AudioManager.GameSfx.die);
-        playerIsDead = state;
-        transform.Find("Sprite").GetComponent<SpriteRenderer>().enabled = !state;
-        _planner.SetAbilities(_roomManager.currentRoom.abilities);
-        _clickHelper.position = new Vector2(1000f, 1000f);
         if (state) {
+            AudioManager.Instance.PlayAudio(AudioManager.GameSfx.die);
             _roomManager.SetEnemyIndicatorState(false);
         }
+        
+        playerIsDead = state;
+        transform.Find("Sprite").GetComponent<SpriteRenderer>().enabled = !state;
+        _clickHelper.position = new Vector2(1000f, 1000f);
     }
 
 }

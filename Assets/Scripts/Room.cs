@@ -42,6 +42,7 @@ public class Room : MonoBehaviour {
         }
         AudioManager.Instance.PlayAudio(AudioManager.GameSfx.spawn);
         _manager.player.GetComponent<WallJumper>().InstantMove(_spawnPoint.position);
+        FindObjectOfType<PlayerBody>().Reset();
         playerInExitZone = false;
     }
     
