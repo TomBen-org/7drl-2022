@@ -2,10 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MovementRaycaster : MonoBehaviour {
-    private const float _acceptanceClickRange = 0.5f;
+    private const float _acceptanceClickRange = 0.25f;
     
     public Camera myCamera;
     public float maxAimAngle = 30f;
@@ -33,70 +34,118 @@ public class MovementRaycaster : MonoBehaviour {
     {
         var worldMousePos = myCamera.ScreenToWorldPoint(Input.mousePosition);
 
-        if (Input.GetMouseButtonUp(0)) {
-            //move on if the player clicks in the same place as an existing, valid location.
-            if (_registered) {
-                if (IsTargetPointValid() && Vector2.Distance(targetPoint, worldMousePos) < _acceptanceClickRange) {
-                    
-                    _director.NextPhase();
-                    return;
-                }
-            }
-            else if (IsTargetPointValid()) {
-                _registered = true;
-                _roomManager.SetEnemyIndicatorState(true);
-                _clickHelper.position = targetPoint;
-                return;
-            }
+        if (!_registered && Input.GetMouseButtonUp(0) && IsTargetPointValid() && Vector2.Distance(targetPoint, worldMousePos) <= _acceptanceClickRange) {
+            _director.NextPhase();
+            return;
         }
         
-        if (Input.GetMouseButtonDown(0)){
-            if (Vector2.Distance(targetPoint, worldMousePos) > _acceptanceClickRange) {
-                _registered = false;
-                _clickHelper.position = new Vector2(1000f, 1000f);
-                return;
-            }
-
+        if (Input.GetMouseButtonUp(0)) {
+            _registered = false;
             if (IsTargetPointValid()) {
-                _roomManager.SetEnemyIndicatorState(false);
-                return;
+                _clickHelper.transform.position = targetPoint;
             }
-            
+            else {
+                _clickHelper.transform.position = new Vector3(1000f,1000f,0f);
+                _roomManager.SetEnemyIndicatorState(false);
+                ResetTargetPoint();
+            }
+            return;
+        }
+
+        if (Input.GetMouseButtonDown(0)) {
+            _clickHelper.transform.position = new Vector3(1000f,1000f,0f);
+            if (_registered == false && targetPoint != Vector2.negativeInfinity &&
+                Vector2.Distance(targetPoint, worldMousePos) > _acceptanceClickRange) {
+                _registered = true;
+            }
         }
 
         if (Input.GetMouseButton(0)) {
-            //shoot a ray at the mouse
-            Vector2 targetDirection = worldMousePos - transform.position;
-
-            int mask = LayerMask.GetMask("MoveTarget","Enemy", "Door");
-            int wallMask = LayerMask.NameToLayer("MoveTarget");
-
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, targetDirection, 5000f, mask);
-
-            if (hit.collider) {
-                _lineRenderer.SetPositions(new Vector3[] {transform.position, hit.point});
-                if (hit.collider.gameObject.layer != wallMask || IsWithinViewCone(hit.point) == false) {
-                    _lineRenderer.endColor = Color.red;
-                    targetPoint = Vector2.negativeInfinity;
-                }
-                else {
-                    _lineRenderer.endColor = Color.green;
-                    targetPoint = hit.point;
-                    _roomManager.UpdateEnemyVision(targetPoint);
-                }
+            if (_registered) {
+                UpdateMovementLine(worldMousePos);
             }
-            else {
-                targetPoint = Vector2.negativeInfinity;
-                _clickHelper.position = new Vector2(1000f, 1000f);
-            }
-            
-            return;
         }
+
+        
         
         if (Input.GetMouseButtonUp(1)) {
             ResetTargetPoint();
             _roomManager.SetEnemyIndicatorState(false);
+            _registered = false;
             return;
+        }
+        
+        
+        
+//---------------------------------------------------------------
+        // if (Input.GetMouseButtonUp(0)) {
+        //     //move on if the player clicks in the same place as an existing, valid location.
+        //     if (_registered) {
+        //         if (IsTargetPointValid() && Vector2.Distance(targetPoint, worldMousePos) < _acceptanceClickRange) {
+        //             
+        //             _director.NextPhase();
+        //             return;
+        //         }
+        //     }
+        //     else if (IsTargetPointValid()) {
+        //         _registered = true;
+        //         _roomManager.SetEnemyIndicatorState(true);
+        //         _clickHelper.position = targetPoint;
+        //         return;
+        //     }
+        // }
+        //
+        // if (Input.GetMouseButtonDown(0)){
+        //     if (Vector2.Distance(targetPoint, worldMousePos) > _acceptanceClickRange) {
+        //         _registered = false;
+        //         _clickHelper.position = new Vector2(1000f, 1000f);
+        //         return;
+        //     }
+        //
+        //     if (IsTargetPointValid()) {
+        //         _roomManager.SetEnemyIndicatorState(false);
+        //         return;
+        //     }
+        //     
+        // }
+        //
+        // if (Input.GetMouseButton(0)) {
+        //     //shoot a ray at the mouse
+        //     
+        //     
+        //     return;
+        // }
+        //
+        // if (Input.GetMouseButtonUp(1)) {
+        //     ResetTargetPoint();
+        //     _roomManager.SetEnemyIndicatorState(false);
+        //     return;
+        // }
+    }
+
+    public void UpdateMovementLine(Vector2 worldMousePos) {
+        Vector2 pos = transform.position;
+        Vector2 targetDirection = worldMousePos - pos;
+
+        int mask = LayerMask.GetMask("MoveTarget","Enemy", "Door");
+        int wallMask = LayerMask.NameToLayer("MoveTarget");
+
+        RaycastHit2D hit = Physics2D.Raycast(pos, targetDirection, 5000f, mask);
+
+        if (hit.collider) {
+            _lineRenderer.SetPositions(new Vector3[] {pos, hit.point});
+            if (hit.collider.gameObject.layer != wallMask || IsWithinViewCone(hit.point) == false) {
+                _lineRenderer.endColor = Color.red;
+                targetPoint = Vector2.negativeInfinity;
+            }
+            else {
+                _lineRenderer.endColor = Color.green;
+                targetPoint = hit.point;
+                _roomManager.UpdateEnemyVision(targetPoint);
+            }
+        }
+        else {
+            targetPoint = Vector2.negativeInfinity;
         }
     }
     
