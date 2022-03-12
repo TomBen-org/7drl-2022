@@ -10986,7 +10986,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8160405513327505878, guid: 45e6446ea9a560142b2f8e3f4a86269f, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8160405513327505879, guid: 45e6446ea9a560142b2f8e3f4a86269f, type: 3}
       propertyPath: m_RootOrder
@@ -12565,7 +12565,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8160405513327505878, guid: 45e6446ea9a560142b2f8e3f4a86269f, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8160405513327505879, guid: 45e6446ea9a560142b2f8e3f4a86269f, type: 3}
       propertyPath: m_RootOrder
@@ -12860,7 +12860,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8160405513327505878, guid: 45e6446ea9a560142b2f8e3f4a86269f, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8160405513327505879, guid: 45e6446ea9a560142b2f8e3f4a86269f, type: 3}
       propertyPath: m_RootOrder
@@ -13009,7 +13009,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 8
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -13033,7 +13033,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 679548518}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.3342309, y: -0.5303391, z: -15.645216}
+  m_LocalPosition: {x: -43.489998, y: 14.77, z: -15.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -105788,7 +105788,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8160405513327505878, guid: 45e6446ea9a560142b2f8e3f4a86269f, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8160405513327505879, guid: 45e6446ea9a560142b2f8e3f4a86269f, type: 3}
       propertyPath: m_RootOrder
@@ -106500,7 +106500,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8160405513327505878, guid: 45e6446ea9a560142b2f8e3f4a86269f, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8160405513327505879, guid: 45e6446ea9a560142b2f8e3f4a86269f, type: 3}
       propertyPath: m_RootOrder
@@ -106851,7 +106851,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8160405513327505878, guid: 45e6446ea9a560142b2f8e3f4a86269f, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8160405513327505879, guid: 45e6446ea9a560142b2f8e3f4a86269f, type: 3}
       propertyPath: m_RootOrder
@@ -108364,7 +108364,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2899839017116725775, guid: b9c0ce390d6e6c84a983b831f01b4964, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2899839017116725775, guid: b9c0ce390d6e6c84a983b831f01b4964, type: 3}
       propertyPath: m_LocalPosition.x
@@ -112820,7 +112820,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3306740658244476159, guid: 15196ffc106e74040a31566be6d620b3, type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 3306740658244476159, guid: 15196ffc106e74040a31566be6d620b3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -113167,7 +113167,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8160405513327505878, guid: 45e6446ea9a560142b2f8e3f4a86269f, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8160405513327505879, guid: 45e6446ea9a560142b2f8e3f4a86269f, type: 3}
       propertyPath: m_RootOrder
